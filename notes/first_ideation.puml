@@ -1,0 +1,80 @@
+@startuml
+
+
+component [Client (main.cpp)] as CompClient
+
+package "Game Engine Parts" {
+
+    component [Master Game Engine (Singletonish)] as CompEngine
+
+    component [Game Scene Interface] as CompScene
+    note right of CompScene 
+        Highest Level-component for all graphics. This includes User-interface as well
+        as all actual gameplay scenes. This may contain other scenes in composite.
+    end note
+
+    'Scene should provide an interface for executing system tick'
+    interface "Execute Scene Update" as ExScnUpdate
+
+
+    CompScene -left- ExScnUpdate
+
+    component [Scene/Game System] as GSystem
+    note left of GSystem
+        Game Systems have complex calculations that need to be done on Game Components.
+        These should have an opportunity to execute calculations once at each game update
+    end note
+
+    interface "System Update" as interfUpdate
+   
+    component [System Instance (Component)] as GComponent
+    note left of GComponent
+        Game Components provide an actuated instance that gets manipulated by
+        Game Systems. Game Components store the state of the instance with regards
+        to the needs of the system
+    end note
+
+    component "Game Entity (Component Collection)" as GEntity
+    note left of GEntity
+        Game entity combines all Components into one whole. By Combining these components,
+        the enttity will become a physical represantion of some 'thing' in the scene.
+        Instances of these entities are allowed to contain some highly specialized
+        update code for ease-of-use !To be avoided!.
+    end note
+
+    interface "Entity Update" as entUpdate
+
+    entUpdate -- GEntity
+    CompScene --( entUpdate
+    GComponent -- GEntity
+
+    GSystem .. GComponent : Engine should have strong ownership of these component instances
+    component [Entity] as GEntity
+
+    ' Game Systems should be updated at each tick. Update is the most 
+    ' important interface to provide 
+    interfUpdate -- GSystem
+    CompScene --( interfUpdate
+
+    CompScene -[hidden]-> GSystem
+
+    ' Game engine declares Game Tick. It requests Scene to update at each tick
+    CompEngine -right-( ExScnUpdate
+}
+
+component [Game Scene Instance] as CompSceneInst
+
+' Game engine provides interface to register Game Scene
+interface "Load Scene" as interLoadScene
+CompEngine -up- interLoadScene
+
+' Client Creates the Scenes and provides them to the engine'
+CompClient -- CompSceneInst : Instantiates
+
+' Scene instances are inherited from the Game scene interface'
+CompSceneInst --|> CompScene
+
+' Client requires the interface to start engine. (Provided by Game engine)
+CompClient --( interLoadScene
+
+@enduml
