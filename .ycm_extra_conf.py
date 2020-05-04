@@ -3,7 +3,7 @@ import ycm_core
 
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
-compilation_database_folder = os.path.join(project_dir, "build/")
+compilation_database_folder = os.path.join(project_dir, "code/build/")
 
 database = ycm_core.CompilationDatabase( compilation_database_folder )
 
