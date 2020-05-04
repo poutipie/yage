@@ -1,9 +1,12 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <demo1.hpp>
 
 int main(void) {
-    
-    printf("Hello World!\n");
-    
-    return 0;
+
+    demo1::demo1_exec();
+    return (EXIT_SUCCESS);
 }
+
 
