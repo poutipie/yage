@@ -15,6 +15,9 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/glad/include")
 # ShaderPipeline module
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/shaderpipeline")
 
+# Add the GLM subdirectory
+add_subdirectory(glm)
+
 # embed shaders into build
 add_executable(embedfile ${CMAKE_CURRENT_SOURCE_DIR}/embedfile/embedfile.c)
 
@@ -40,7 +43,8 @@ add_library(
     frag.c # The common fragment shader
 )
 
-target_link_libraries(ogl_lib ${OPENGL_gl_LIBRARY} glfw ${CMAKE_DL_LIBS})
+# Link glfw to this
+target_link_libraries(ogl_lib ${OPENGL_gl_LIBRARY} glfw glm ${CMAKE_DL_LIBS})
 
 # Make an include directory from which ogl_lib routines can be found
 target_include_directories(ogl_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
