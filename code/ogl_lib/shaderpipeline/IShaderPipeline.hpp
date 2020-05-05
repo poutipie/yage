@@ -30,6 +30,10 @@ namespace GL_CLASS {
              */
             virtual bool set_uniform_float(char* name, float value) const = 0;
 
+            /* Sets a vector 4 uniform to be used by the shaders in the pipeline
+             */
+            virtual bool set_uniform_float4(char* name, float x, float y, float z, float i) = 0;
+
     };
 }
 

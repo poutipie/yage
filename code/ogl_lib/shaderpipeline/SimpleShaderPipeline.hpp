@@ -14,7 +14,9 @@ namespace GL_CLASS {
             bool use() const;
             bool set_uniform_bool(char* name, bool value) const;
             bool set_uniform_int(char* namme, int value) const;
-            bool set_uniform_float(char* name, float value) const;
+            bool set_uniform_float(char* name, float value) const; 
+            bool set_uniform_float4(char* name, float x, float y, float z, float i);
+
 
         private:
 

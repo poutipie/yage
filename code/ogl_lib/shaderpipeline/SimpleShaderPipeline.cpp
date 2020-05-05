@@ -100,5 +100,11 @@ namespace GL_CLASS {
         glUniform1f(glGetUniformLocation(m_shader_program, name), value);
         return true;
     }
+
+    
+    bool SimpleShaderPipeline::set_uniform_float4(char* name, float x, float y, float z, float i) {
+        glUniform4f(glGetUniformLocation(m_shader_program, name), x, y, z, i);
+        return true;
+    }
 }
 
