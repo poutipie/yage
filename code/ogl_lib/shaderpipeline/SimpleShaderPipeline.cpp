@@ -106,5 +106,11 @@ namespace GL_CLASS {
         glUniform4f(glGetUniformLocation(m_shader_program, name), x, y, z, i);
         return true;
     }
+
+    bool SimpleShaderPipeline::set_uniform_matf4(char* name, const float* values) {
+        unsigned int transform_loc = glGetUniformLocation(m_shader_program, name);
+        glUniformMatrix4fv(transform_loc, 1, GL_FALSE, values); 
+        return true;
+    };
 }
 

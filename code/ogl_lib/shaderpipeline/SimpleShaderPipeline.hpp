@@ -16,7 +16,7 @@ namespace GL_CLASS {
             bool set_uniform_int(char* namme, int value) const;
             bool set_uniform_float(char* name, float value) const; 
             bool set_uniform_float4(char* name, float x, float y, float z, float i);
-
+            bool set_uniform_matf4(char* name, const float* values);
 
         private:
 
