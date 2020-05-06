@@ -1,6 +1,8 @@
 #ifndef VAO_HPP
 #define VAO_HPP
 
+#include "IVao.hpp"
+
 namespace GL_CLASS {
 
     typedef unsigned int VAO_T;
@@ -28,25 +30,7 @@ namespace GL_CLASS {
 
     };
 
-    class IVao {
-
-        public:
-
-            /* Make the Vao */
-            virtual bool make() = 0;
-
-            /* Bind the Vao */
-            virtual bool bind() = 0;
-
-            /* Draws Vao using the bound gl shaderpipeline */
-            virtual bool draw();
-
-            /* Unbind the Vao */
-            virtual bool unbind() = 0;
-    };
-
-
-    class Vao {
+    class Vao : public IVao {
 
         public:
 
