@@ -10,16 +10,17 @@ include_directories(${OPENGL_INCLUDE_DIR})
 include_directories(${GLFW_INCLUDE_DIRS})
 
 # We are also using glad library
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/glad/include")
-
-# ShaderPipeline module
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/shaderpipeline")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/glad/include")
 
 # Add the GLM subdirectory
-add_subdirectory(glm)
+add_subdirectory(ext/glm)
+
+# source modules
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src/shaderpipeline")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # embed shaders into build
-add_executable(embedfile ${CMAKE_CURRENT_SOURCE_DIR}/embedfile/embedfile.c)
+add_executable(embedfile ${CMAKE_CURRENT_SOURCE_DIR}/utils/embedfile/embedfile.c)
 
 add_custom_command(
     OUTPUT vert.c
@@ -35,15 +36,16 @@ add_custom_command(
 
 add_library(
     ogl_lib
-    glad/src/glad.c # Just add this too so the library can use the glad 
+    ext/glad/src/glad.c # Just add this too so the library can use the glad 
     demo1.hpp
     demo1.cpp
-    shaderpipeline/SimpleShaderPipeline.cpp
+    src/shaderpipeline/SimpleShaderPipeline.cpp
+    src/Vao.cpp
     vert.c # The common vertex shader
     frag.c # The common fragment shader
 )
 
-# Link glfw to this
+# Link glfw to this together with the glm
 target_link_libraries(ogl_lib ${OPENGL_gl_LIBRARY} glfw glm ${CMAKE_DL_LIBS})
 
 # Make an include directory from which ogl_lib routines can be found

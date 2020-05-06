@@ -9,7 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shaderpipeline/SimpleShaderPipeline.hpp"
+#include "SimpleShaderPipeline.hpp"
+#include "Vao.hpp"
 
 float vertices[] = {
     -0.25f,  0.75f, 0.0f, // top right
@@ -54,12 +55,31 @@ typedef unsigned int EBO_T;
 
 int demo1::demo1_exec(void) {
 
+
+    // Create the shaderpipeline
     GL_CLASS::PipelineCompilerSpec spec;
     const char* vert_res = vert;
     const char* frag_res = frag;
     spec.vertex_res = vert_res;
     spec.fragment_res = frag_res;
     GL_CLASS::SimpleShaderPipeline shader_pipeline(spec);
+
+    // Create the Vao for first square
+    GL_CLASS::VaoAttributeSpec sqr_spec{ 
+        vertices, sizeof(vertices),
+        indices, sizeof(indices), 
+        GL_CLASS::DRAW_HINT::STATIC,
+    };
+    GL_CLASS::Vao sqr_vao(sqr_spec);
+
+    // Create the VAO for second square
+    GL_CLASS::VaoAttributeSpec sqr2_spec {
+        vertices2, sizeof(vertices2),
+        indices, sizeof(indices),
+        GL_CLASS::DRAW_HINT::STATIC,
+    };
+    GL_CLASS::Vao sqr2_vao(sqr2_spec);
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -91,83 +111,15 @@ int demo1::demo1_exec(void) {
         return(EXIT_FAILURE);
     }
 
-    /* Initialize a Vertex array object and bind the square 1 data into it.
-     */
-    VAO_T sqr1_VAO;
-    glGenVertexArrays(1, &sqr1_VAO);
-    
-    /*
-     * Create vertex buffer data.
-     * Vertex array buffer will be static so it will not change during updates
-     */
-    VBO_T sqr1_VBO;
-    glGenBuffers(1, &sqr1_VBO);
+    if (!sqr_vao.make())
+    {
+        printf("Failed to make VAOi for first square");
+    }
 
-    /*
-     * Create Element buffer data
-     */
-    EBO_T sqr_EBO;
-    glGenBuffers(1, &sqr_EBO);
-
-    /* bind the Vertex Array Object first, then bind and set vertex buffer(s), 
-     * and then configure vertex attributes(s).
-     */
-    glBindVertexArray(sqr1_VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, sqr1_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sqr_EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    /* Set up vertex attribute pointers. Data will be laid out like
-     * |x, y, z|x, y, z|
-     */
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0); // Enable vertex array for location (0)
-
-    /* You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, 
-     * but this rarely happens. Modifying other
-     * VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs 
-     * (nor VBOs) when it's not directly necessary.
-     */
-    glBindVertexArray(0); 
-
-    /* We will do another set of binding for the second square
-     */
-
-    /* Again, generate the VAO containing everything about the square 2
-     */
-    VAO_T sqr2_VAO;
-    glGenVertexArrays(1, &sqr2_VAO);
-
-    /* Make the VBO object
-     */
-    VBO_T sqr2_VBO;
-    glGenBuffers(1, &sqr2_VBO);
-
-    /* Bind sqr2 vertex array so we can work with that
-     */
-    glBindVertexArray(sqr2_VAO);
-
-    /* Bind the sqr2 vertex data buffer (VBO) to VAO of sqr2
-     */
-    glBindBuffer(GL_ARRAY_BUFFER, sqr2_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW);
-
-    /* Bind the same buffer as we had in sqr1 to EBO of sqr2
-     */
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sqr_EBO);
-
-    /* Setup the vertex attribute pointers for location 0
-     */
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    glEnableVertexAttribArray(0);
-
-    /* Unbind VAO
-     */
-    glBindVertexArray(0);
-
+    if (!sqr2_vao.make())
+    {
+        printf("Failed to make VAO for second square");
+    }
 
     /* Lets make a fun transform matrix that we can use in the demo
      */
@@ -190,20 +142,8 @@ int demo1::demo1_exec(void) {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
   
-        /* Bind vertex array. Rendering code for the VAO starts
-     	*/
-    	glBindVertexArray(sqr1_VAO);
-
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-        /* Unbind vertex array. Rendering code for the VAO ends
-         */
-        glBindVertexArray(0);
-
-        /* Bind sqr2 vertex array. Rendering code for the VAO starts
-         */
-        glBindVertexArray(sqr2_VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    	sqr_vao.draw();
+        sqr2_vao.draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -213,5 +153,4 @@ int demo1::demo1_exec(void) {
     glfwTerminate();
     return (EXIT_SUCCESS);
 }
-
 
