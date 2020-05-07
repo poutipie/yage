@@ -15,11 +15,13 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/ext/glad/include")
 # Add the GLM subdirectory
 add_subdirectory(ext/glm)
 
-# source modules
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src/shaderpipeline")
+# Source modules for the GL_CLASS types
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src/gl_class")
+
+# Engine Source modules
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-# embed shaders into build
+# Embed shaders into build
 add_executable(embedfile ${CMAKE_CURRENT_SOURCE_DIR}/utils/embedfile/embedfile.c)
 
 add_custom_command(
@@ -35,21 +37,21 @@ add_custom_command(
 )
 
 add_library(
-    ogl_lib
+    yagEngine
     ext/glad/src/glad.c # Just add this too so the library can use the glad 
     demo1.hpp
     demo1.cpp
-    src/shaderpipeline/SimpleShaderPipeline.cpp
-    src/Vao.cpp
+    src/gl_class/SimpleShaderPipeline.cpp
+    src/gl_class/Vao.cpp
     vert.c # The common vertex shader
     frag.c # The common fragment shader
 )
 
 # Link glfw to this together with the glm
-target_link_libraries(ogl_lib ${OPENGL_gl_LIBRARY} glfw glm ${CMAKE_DL_LIBS})
+target_link_libraries(yagEngine ${OPENGL_gl_LIBRARY} glfw glm ${CMAKE_DL_LIBS})
 
-# Make an include directory from which ogl_lib routines can be found
-target_include_directories(ogl_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+# Make an include directory from which yagEngine routines can be found
+target_include_directories(yagEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Compile commands for YCM
 SET( CMAKE_EXPORT_COMPILE_COMMANDS ON)
