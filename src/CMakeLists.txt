@@ -11,5 +11,3 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 # ---- Link yagEngine ---- #
 target_link_libraries(${PROJECT_NAME} PRIVATE yagEngine)
 
-# Compile commands for YCM
-SET( CMAKE_EXPORT_COMPILE_COMMANDS ON)

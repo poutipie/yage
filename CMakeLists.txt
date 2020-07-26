@@ -6,3 +6,6 @@ project("cpp_2d_ver2")
 
 add_subdirectory("src")
 
+# Compile commands for YCM
+SET( CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
