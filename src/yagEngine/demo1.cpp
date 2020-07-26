@@ -1,3 +1,10 @@
+/**
+ * @file demo1.cpp
+ * @brief The source file of the demo1.
+ * @author poutipie
+ * @version 1
+ * @date 2020-07-26
+ */
 #include "demo1.hpp"
 
 #include "glad/glad.h"

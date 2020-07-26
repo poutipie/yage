@@ -12,6 +12,7 @@ namespace GL_CLASS {
     }
 
     bool SimpleShaderPipeline::make() {
+
         /* Compile our vertex shader for the program and link it.
         * Vertex shader maps the vertax data coordinates into normalized
         * screen coordinates.
