@@ -18,10 +18,23 @@
 #include "Rectangle.hpp"
 
 
+/**
+ * @brief GLFW callback for when window has been resized.
+ *
+ * @param window The GLFW window pointer that has been resized
+ * @param width new width
+ * @param height new height
+ */
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
+
+/**
+ * @brief The input processing callback for a GLFW windoe.
+ *
+ * @param window The GLFWWindow pointer for window with possible input
+ */
 void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)

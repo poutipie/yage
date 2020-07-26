@@ -82,7 +82,11 @@ class RenderObject : public IRenderable {
          */
         RenderObject();
 
-        /* Use this in the child class constructor to initialize the m_vao */
+        /**
+         * @brief Use this in the child class constructor to initialize the m_vao object properly.
+         *
+         * @param vao
+         */
         void initialize_vao(GL_CLASS::Vao vao);
 
 

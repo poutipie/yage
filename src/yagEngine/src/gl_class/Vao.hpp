@@ -13,27 +13,66 @@
 
 namespace GL_CLASS {
 
+
+    /**
+     * @brief Generic type for Opengl VAO
+     */
     typedef unsigned int VAO_T;
+    
+    /**
+     * @brief Generic type for OpenGL VBO
+     */
     typedef unsigned int VBO_T;
+    
+    /**
+     * @brief Generic type for OpenGL EBO
+     */
     typedef unsigned int EBO_T;
 
+
+    /**
+     * @brief Draw hints that can be set for the Vao object.
+     * Can be one of: STATIC, DYNAMIC, STREAM_DRAW.
+     */
     enum class DRAW_HINT {
         STATIC,
         DYNAMIC,
         STREAM_DRAW
     };
-   
+  
+
+    /**
+     * @brief The attributes that can be provided to the Vao object.
+     * Main attributes are the vertices and the indices that will be stored in memory
+     * and they will dictate how the Vao will be drawn.
+     */
     struct VaoAttributeSpec {
         
-        /* The Vertex array data */
+        /**
+         * @brief The Vertex Array data
+         */
         float* vertices;
-        unsigned int vertices_len;
         
-        /* The Element array data */
+        /**
+         * @brief The length of the Vertex Array data
+         */
+        unsigned int vertices_len;
+         
+        /**
+         * @brief The Element Array Data
+         */
         unsigned int* indices;
+        
+        /**
+         * @brief The lendgth of the Element Array Data
+         */
         unsigned int indices_len;
 
         /* Draw hint for opengl*/
+
+        /**
+         * @brief The Draw hint for opengl
+         */
         DRAW_HINT  draw_hint; 
 
     };
