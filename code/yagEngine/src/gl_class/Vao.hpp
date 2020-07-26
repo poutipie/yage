@@ -14,7 +14,7 @@ namespace GL_CLASS {
         DYNAMIC,
         STREAM_DRAW
     };
-
+   
     struct VaoAttributeSpec {
         
         /* The Vertex array data */
@@ -38,11 +38,11 @@ namespace GL_CLASS {
 
             bool make();
 
-            bool bind();
+            bool bind() const;
 
-            bool draw();
+            bool draw() const;
 
-            bool unbind();
+            bool unbind() const;
             
 
         private:

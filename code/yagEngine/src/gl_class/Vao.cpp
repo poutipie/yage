@@ -48,26 +48,26 @@ namespace GL_CLASS {
         return true;
     }
 
-    bool Vao::bind() {
+    bool Vao::bind() const {
         glBindVertexArray(m_id); 
         return true;
     }
 
-    bool Vao::draw() {
+    bool Vao::draw() const {
 
         bool ret = true;
 
         /* Bind Vertex Array. Drawing code for the certex array starts. */
         ret &= bind();
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, m_spec.indices_len, GL_UNSIGNED_INT, 0);
         
         ret &= unbind(); /* Unbind Vertex Array.. */
         
         return ret;
     }
 
-    bool Vao::unbind() {
+    bool Vao::unbind() const {
         glBindVertexArray(0);
         return true;
     }

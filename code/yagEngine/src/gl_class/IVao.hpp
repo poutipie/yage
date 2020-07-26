@@ -11,13 +11,13 @@ namespace GL_CLASS {
             virtual bool make() = 0;
 
             /* Bind the Vao */
-            virtual bool bind() = 0;
+            virtual bool bind() const = 0;
 
             /* Draws Vao using the bound gl shaderpipeline */
-            virtual bool draw() = 0;
+            virtual bool draw() const = 0;
 
             /* Unbind the Vao */
-            virtual bool unbind() = 0;
+            virtual bool unbind() const = 0;
     };
 
 }
