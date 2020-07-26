@@ -12,12 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "SimpleShaderPipeline.hpp"
-#include "Vao.hpp"
 
 #include "SimpleRenderer.hpp"
 #include "Rectangle.hpp"
