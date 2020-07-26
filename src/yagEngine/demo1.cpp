@@ -28,12 +28,6 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-extern "C" const char vert[];
-extern "C" const size_t vert_len;
-
-extern "C" const char frag[];
-extern "C" const size_t frag_len;
-
 int demo1::demo1_exec(void) {
 
     glfwInit();
