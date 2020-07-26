@@ -1,12 +1,9 @@
+# CMakeLists.txt: CMake library for YAGEngine
+cmake_minimum_required(VERSION 3.10)
 
-# Prefer GLVND library
-SET ( OpenGL_GL_PREFERENCE GLVND)
 
-# Need to use common libraries for Opengl and glfw
-find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
+# ---- Embed shaders into build ---- #
 
-# Embed shaders into build
 add_executable(embedfile ${CMAKE_CURRENT_SOURCE_DIR}/utils/embedfile/embedfile.c)
 
 add_custom_command(
@@ -21,8 +18,20 @@ add_custom_command(
     DEPENDS shaders/frag.glsl
 )
 
-# Add the GLM subdirectory
-add_subdirectory(ext/glm)
+# ---- Copy engine default assets to package ---- #
+file( COPY res/yage
+      DESTINATION ${PROJECT_BINARY_DIR}/assets
+)
+
+
+# --- Make yagEngine Library ---- #
+
+SET ( OpenGL_GL_PREFERENCE GLVND) # Prefer GLVND library
+find_package(OpenGL REQUIRED) # Use Common OpenGL package library
+find_package(glfw3 REQUIRED) # Use Common glfw package library
+
+add_subdirectory(ext/glm) # Add the GLM subdirectory
+add_subdirectory(ext/stb_image) # Add the STB Image subdirectory
 
 add_library(yagEngine STATIC
     ext/glad/src/glad.c # Just add this too so the library can use the glad 
@@ -40,7 +49,8 @@ add_library(yagEngine STATIC
 target_include_directories(yagEngine PRIVATE
     ${OPENGL_INCLUDE_DIR}
     ${GLFW_INCLUDE_DIRS}
-    "${CMAKE_CURRENT_SOURCE_DIR}/ext/glad/include" # The glad library
+    "${CMAKE_CURRENT_SOURCE_DIR}/ext/glad/include" # The glad library 
+    "${CMAKE_CURRENT_SOURCE_DIR}/ext/stb_image"    # The stb_image library
     "${CMAKE_CURRENT_SOURCE_DIR}/src/gl_class"     # Source modules for the GL_CLASS types
     "${CMAKE_CURRENT_SOURCE_DIR}/src"              # Engine source modules
 )
@@ -50,9 +60,10 @@ target_include_directories(yagEngine PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# Link glfw to this together with the glm
-target_link_libraries(yagEngine ${OPENGL_gl_LIBRARY} glfw glm ${CMAKE_DL_LIBS})
 
+# ---- Link dependencies to yagEngine ---- #
+
+target_link_libraries(yagEngine ${OPENGL_gl_LIBRARY} glfw glm stb_image ${CMAKE_DL_LIBS})
 
 get_target_property(target_includes yagEngine INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "${PROJECT_NAME} target includes: " ${target_includes})
