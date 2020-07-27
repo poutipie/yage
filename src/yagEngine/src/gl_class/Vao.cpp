@@ -34,10 +34,15 @@ namespace GL_CLASS {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_spec.indices_len, m_spec.indices, hint);
 
         /* Set up vertex attribute pointers. Data will be laid out like
-        * |x, y, z|x, y, z|
+        * |x, y, z|tex.x, tex.y|x, y, z|tex.x, tex.y
         */
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+        /* Position attribute */
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
+        /* Texture attribute */
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)(3*sizeof(float)));
+        glEnableVertexAttribArray(1);
 
         /* You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, 
         * but this rarely happens. Modifying other VAOs requires a call to glBindVertexArray 

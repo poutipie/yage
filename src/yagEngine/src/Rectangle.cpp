@@ -8,10 +8,12 @@ Rectangle::Rectangle(float x, float y, float width, float height)
     : RenderObject() {
    
     float vertices[] = {
-        x, y, 0.0f,                 // top left
-        x + width, y, 0.0f,         // top right
-        x, y - height, 0.0f,        // bottom left
-        x + width, y - height, 0.0f // bottom right
+
+        /* Vertex Coordinates */     /* Texture Coordinates */
+        x, y, 0.0f,                  0.0f, 1.0f,               /*top left*/  
+        x + width, y, 0.0f,          1.0f, 1.0f,               /*top right*/   
+        x, y - height, 0.0f,         0.0f, 0.0f,               /*bottom left*/
+        x + width, y - height, 0.0f, 1.0f, 0.0f                /*bottom right*/
     };
 
     unsigned int vertices_len = sizeof(vertices);

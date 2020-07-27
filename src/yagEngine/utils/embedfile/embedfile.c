@@ -30,7 +30,7 @@ int main(int argc, char** argv)
   fprintf(out, "#include <stdlib.h>\n");
   fprintf(out, "const char %s[] = {\n", sym);
 
-  unsigned char buf[256];
+  unsigned char buf[1024];
   size_t nread = 0;
   size_t linecount = 0;
   do {

@@ -17,6 +17,8 @@
 #include "SimpleRenderer.hpp"
 #include "Rectangle.hpp"
 
+// TODO: Remove stb_image here
+#include <stb_image.h>
 
 /**
  * @brief GLFW callback for when window has been resized.
@@ -31,7 +33,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 
 
 /**
- * @brief The input processing callback for a GLFW windoe.
+ * @brief The input processing callback for a GLFW window.
  *
  * @param window The GLFWWindow pointer for window with possible input
  */
@@ -72,7 +74,33 @@ int demo1::demo1_exec(void) {
     YAGE::GFX::SimpleRenderer renderer;
     YAGE::GFX::Rectangle test_rect(-0.75f, 0.75f, 0.5f, 0.5f);
     YAGE::GFX::Rectangle test_rect2(0.25f, -0.25f, 0.5f, 0.5f);
+   
+    /* Load and create a texture */
+    unsigned int texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    /* Set the texture wrapping parameters */
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    /* Set the texture filtering parameters */
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    /* Load image, create texture and generate mipmaps */
+    int width, height, nrChannels;
     
+    const char* text_path = "assets/yage/textures/container.jpg";
+    unsigned char* data = stbi_load(text_path, &width, &height, &nrChannels, 0);
+    if(!data) {
+        printf("FAILED TO LOAD TEXTURE %s", text_path);
+        return (EXIT_FAILURE);
+    }
+    else {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
+    stbi_image_free(data);
+
     while(!glfwWindowShouldClose(window)) {
 
 	processInput(window);
@@ -91,7 +119,9 @@ int demo1::demo1_exec(void) {
         // Render Background
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-     
+    
+        glBindTexture(GL_TEXTURE_2D, texture);
+
         // Draw the rectangle
         test_rect.set_color(glm::vec4(0.5f, 0.5f, green_value, 0.5f));
         //test_rect.set_transform(trans);

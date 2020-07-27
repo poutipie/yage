@@ -5,6 +5,8 @@ add_library(stb_image STATIC
     ${CMAKE_CURRENT_SOURCE_DIR}/stb_image.h
 )
 
+target_compile_definitions(stb_image PUBLIC -DSTB_IMAGE_IMPLEMENTATION)
+
 set_target_properties(stb_image PROPERTIES LINKER_LANGUAGE CXX)
 
 # Make an include directory from which stb_image routines can be found.

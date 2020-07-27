@@ -29,7 +29,6 @@ namespace GL_CLASS {
      */
     typedef unsigned int EBO_T;
 
-
     /**
      * @brief Draw hints that can be set for the Vao object.
      * Can be one of: STATIC, DYNAMIC, STREAM_DRAW.
@@ -40,7 +39,6 @@ namespace GL_CLASS {
         STREAM_DRAW
     };
   
-
     /**
      * @brief The attributes that can be provided to the Vao object.
      * Main attributes are the vertices and the indices that will be stored in memory
@@ -93,6 +91,11 @@ namespace GL_CLASS {
              * options.
              */
             Vao(VaoAttributeSpec spec );
+
+            /**
+             * @brief Deconstructor of the Vao class
+             */
+            ~Vao() = default;
 
             /**
              * @brief Generates the corresponding Vertex Array Object in OpenGL together with the
