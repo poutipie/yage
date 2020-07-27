@@ -1,7 +1,7 @@
 # CMakeLists.txt: CMake project
 cmake_minimum_required(VERSION 3.10)
 
-set(CMAKE_CXX_STANDARD 11) # No explicit compiler flags if possible
+set(CMAKE_CXX_STANDARD 17) # No explicit compiler flags if possible
 
 add_subdirectory(yagEngine)
 

@@ -16,9 +16,7 @@
 
 #include "SimpleRenderer.hpp"
 #include "Rectangle.hpp"
-
-// TODO: Remove stb_image here
-#include <stb_image.h>
+#include "AssetBundle.hpp"
 
 /**
  * @brief GLFW callback for when window has been resized.
@@ -87,19 +85,14 @@ int demo1::demo1_exec(void) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     /* Load image, create texture and generate mipmaps */
     int width, height, nrChannels;
-    
-    const char* text_path = "assets/yage/textures/container.jpg";
-    unsigned char* data = stbi_load(text_path, &width, &height, &nrChannels, 0);
-    if(!data) {
-        printf("FAILED TO LOAD TEXTURE %s", text_path);
-        return (EXIT_FAILURE);
-    }
-    else {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
+
+    YAGE::FS::AssetBundle assets;
+    YAGE::FS::ASSET::Image2D image = assets.load_image("container.jpg");
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, 
+            GL_UNSIGNED_BYTE, image.data);
+    glGenerateMipmap(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, 0);
-    stbi_image_free(data);
 
     while(!glfwWindowShouldClose(window)) {
 
