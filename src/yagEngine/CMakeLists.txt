@@ -29,16 +29,18 @@ file( COPY res/yage
 SET ( OpenGL_GL_PREFERENCE GLVND) # Prefer GLVND library
 find_package(OpenGL REQUIRED) # Use Common OpenGL package library
 find_package(glfw3 REQUIRED) # Use Common glfw package library
+find_package(Freetype REQUIRED) # Use common freetype package
 
-add_subdirectory(ext/glm) # Add the GLM subdirectory
-add_subdirectory(ext/stb_image) # Add the STB Image subdirectory
+add_subdirectory(3rdp/glm) # Add the GLM subdirectory
+add_subdirectory(3rdp/stb_image) # Add the STB Image subdirectory
 
 add_library(yagEngine STATIC
-    ext/glad/src/glad.c # Just add this too so the library can use the glad 
+    3rdp/glad/src/glad.c # Just add this too so the library can use the glad 
     demo1.hpp
     demo1.cpp
     src/gl_class/SimpleShaderPipeline.cpp
     src/gl_class/Vao.cpp
+    src/gl_class/GLTexture.cpp
     src/Rectangle.cpp
     src/RenderObject.cpp
     src/SimpleRenderer.cpp
@@ -50,8 +52,9 @@ add_library(yagEngine STATIC
 target_include_directories(yagEngine PRIVATE
     ${OPENGL_INCLUDE_DIR}
     ${GLFW_INCLUDE_DIRS}
-    "${CMAKE_CURRENT_SOURCE_DIR}/ext/glad/include" # The glad library 
-    "${CMAKE_CURRENT_SOURCE_DIR}/ext/stb_image"    # The stb_image library
+    ${FREETYPE_INCLUDE_DIRS}
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/glad/include" # The glad library 
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/stb_image"    # The stb_image library
     "${CMAKE_CURRENT_SOURCE_DIR}/src/gl_class"     # Source modules for the GL_CLASS types
     "${CMAKE_CURRENT_SOURCE_DIR}/src/fs"           # FileSystem Modules
     "${CMAKE_CURRENT_SOURCE_DIR}/src"              # Engine source modules
@@ -65,7 +68,11 @@ target_include_directories(yagEngine PUBLIC
 
 # ---- Link dependencies to yagEngine ---- #
 
-target_link_libraries(yagEngine ${OPENGL_gl_LIBRARY} glfw glm stb_image ${CMAKE_DL_LIBS})
+target_link_libraries(yagEngine 
+    ${OPENGL_gl_LIBRARY}
+    ${FREETYPE_LIBRARIES}
+    glfw glm stb_image
+    ${CMAKE_DL_LIBS})
 
 get_target_property(target_includes yagEngine INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "${PROJECT_NAME} target includes: " ${target_includes})

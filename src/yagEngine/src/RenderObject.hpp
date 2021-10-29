@@ -10,9 +10,12 @@
 #define RENDEROBJECT_HPP
 
 #include <glm/glm.hpp>
-#include "IRenderable.hpp"
 
 #include "gl_class/Vao.hpp"
+#include "gl_class/GLTexture.hpp"
+
+#include "IRenderable.hpp"
+#include "AssetCommons.hpp"
 
 namespace YAGE {
 namespace GFX {
@@ -48,7 +51,6 @@ class RenderObject : public IRenderable {
          */
         bool set_transform(glm::mat4 trans);
 
-
         /**
          * @brief Set the color of this object to a new color. The color is defined as a float4.
          *
@@ -59,11 +61,35 @@ class RenderObject : public IRenderable {
         bool set_color(glm::vec4 color);
 
         /**
-         * @brief Get the color od this object.
+         * @brief Get the color of this object.
          *
          * @return The glm vec4 object representing the color.
          */
         glm::vec4 get_color() const;
+
+        /**
+         * @brief Set the texture to a texture in the file.
+         * 
+         * @param image_file Image2D object that will represent the texture
+         *
+         * @return true if settings succeeded
+         */
+        bool set_texture(YAGE::FS::ASSET::Image2D image);
+
+
+        /**
+         * @brief Get the texture of this object
+         * 
+         * @return GL_CLASS::GLTexture 
+         */
+        GL_CLASS::GLTexture get_texture() const;
+
+        /**
+         * @brief Tells if the RenderObject has a valid texture set
+         * 
+         * @return true if the texture is set.
+         */
+        bool has_texture() const;
 
         /**
          * @brief Transforms the current transform by the transform. (A multiplication operation)
@@ -93,6 +119,8 @@ class RenderObject : public IRenderable {
     private:
 
         GL_CLASS::Vao m_vao;
+        GL_CLASS::GLTexture m_texture;
+        bool m_has_texture;
         glm::mat4 m_transform;
         glm::vec4 m_base_color;
 };

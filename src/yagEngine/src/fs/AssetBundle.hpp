@@ -62,7 +62,7 @@ class AssetBundle {
          *
          * @param asse Asset file name to loadt
          *
-         * @return ASSET::Image2D representing the laoded image data 
+         * @return ASSET::Image2D representing the loaded image data 
          */
         ASSET::Image2D load_image(const char* asset);
 };

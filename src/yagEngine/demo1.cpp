@@ -75,28 +75,14 @@ int demo1::demo1_exec(void) {
    
     /* Load and create a texture */
     unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    /* Set the texture wrapping parameters */
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    /* Set the texture filtering parameters */
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    /* Load image, create texture and generate mipmaps */
-    int width, height, nrChannels;
 
     YAGE::FS::AssetBundle assets;
     YAGE::FS::ASSET::Image2D image = assets.load_image("container.jpg");
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, 
-            GL_UNSIGNED_BYTE, image.data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    test_rect.set_texture(image);
 
     while(!glfwWindowShouldClose(window)) {
 
-	processInput(window);
+	    processInput(window);
 
         float time_value = glfwGetTime(); 
         float cycle_mult = sin(time_value);
@@ -110,14 +96,12 @@ int demo1::demo1_exec(void) {
         trans = glm::rotate(trans, glm::radians(180.0f * cycle_mult), glm::vec3(0.0, 0.0, 1.0));
 
         // Render Background
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-    
-        glBindTexture(GL_TEXTURE_2D, texture);
+	    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	    glClear(GL_COLOR_BUFFER_BIT);
 
         // Draw the rectangle
         test_rect.set_color(glm::vec4(0.5f, 0.5f, green_value, 0.5f));
-        //test_rect.set_transform(trans);
+        test_rect.set_transform(trans);
         renderer.render(test_rect);
         test_rect2.set_color(glm::vec4(0.5f, 0.5f, green_value2, 0.5f));
         renderer.render(test_rect2);

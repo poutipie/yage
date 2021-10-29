@@ -1,4 +1,4 @@
-// SImpleShaderPipeline.cpp
+// SimpleShaderPipeline.cpp
 #include "SimpleShaderPipeline.hpp"
 #include "glad/glad.h"
 #include "stdio.h"
