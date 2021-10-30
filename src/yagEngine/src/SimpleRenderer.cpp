@@ -1,5 +1,6 @@
-
 #include "SimpleRenderer.hpp"
+
+#include "gl_class/GLScene.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -13,7 +14,10 @@ extern "C" const char frag[];
 extern "C" const size_t frag_len;
 
 SimpleRenderer::SimpleRenderer() 
-: m_shader_pipeline(GL_CLASS::PipelineCompilerSpec(vert, frag)){
+: 
+m_shader_pipeline(GL_CLASS::PipelineCompilerSpec(vert, frag)), 
+m_background_color()
+{
     m_shader_pipeline.make();
 }
 
@@ -36,6 +40,14 @@ bool SimpleRenderer::render(const RenderObject& object) {
     object.render();
 
     return true;
+}
+
+void SimpleRenderer::clear_scene() const {
+    GL_CLASS::GLScene::clear(m_background_color);
+}
+
+void SimpleRenderer::set_background_color(glm::vec4 color) {
+    m_background_color = color;
 }
 
 } // GFX

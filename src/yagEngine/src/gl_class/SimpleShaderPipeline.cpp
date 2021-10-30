@@ -1,13 +1,16 @@
 // SimpleShaderPipeline.cpp
 #include "SimpleShaderPipeline.hpp"
-#include "glad/glad.h"
-#include "stdio.h"
+#include "GLBindings.hpp"
+#include <stdio.h>
 
 namespace GL_CLASS {
 
     SimpleShaderPipeline::SimpleShaderPipeline(const PipelineCompilerSpec& spec) 
         : m_pipeline_compiler_spec(spec) 
     {
+        if (!GL_BINDINGS::Initialize()) {
+            printf("Warning: ShaderPipeline used before opengl bindings were tied to context!\n");
+        }
         return;
     }
 

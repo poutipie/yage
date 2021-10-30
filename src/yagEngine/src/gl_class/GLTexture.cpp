@@ -1,11 +1,17 @@
 // GLTexture.cpp
 #include "GLTexture.hpp"
-#include "glad/glad.h"
+#include "GLBindings.hpp"
+#include <stdio.h>
 
 namespace GL_CLASS {
 
     GLTexture::GLTexture(GLTextureAttributeSpec spec)
         : m_spec(spec), m_id(0) {
+        
+        if (!GL_BINDINGS::Initialize()) {
+            printf("Warning: GLTexture used before opengl bindings were tied to context.\n");
+        }
+        return;
     }
 
     bool GLTexture::make() {

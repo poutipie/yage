@@ -38,6 +38,8 @@ add_library(yagEngine STATIC
     3rdp/glad/src/glad.c # Just add this too so the library can use the glad 
     demo1.hpp
     demo1.cpp
+    src/gl_class/GLBindings.cpp
+    src/gl_class/GLScene.cpp
     src/gl_class/SimpleShaderPipeline.cpp
     src/gl_class/Vao.cpp
     src/gl_class/GLTexture.cpp

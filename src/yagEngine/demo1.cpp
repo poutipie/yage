@@ -60,16 +60,8 @@ int demo1::demo1_exec(void) {
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);  
 
-
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        printf("Failed to initialize GLAD\n");
-        return (EXIT_FAILURE);
-    }    
-
     YAGE::GFX::SimpleRenderer renderer;
+    renderer.set_background_color(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
     YAGE::GFX::Rectangle test_rect(-0.75f, 0.75f, 0.5f, 0.5f);
     YAGE::GFX::Rectangle test_rect2(0.25f, -0.25f, 0.5f, 0.5f);
    
@@ -95,11 +87,8 @@ int demo1::demo1_exec(void) {
         trans = glm::scale(trans, glm::vec3(cycle_mult, 1.0f, 1.0f));
         trans = glm::rotate(trans, glm::radians(180.0f * cycle_mult), glm::vec3(0.0, 0.0, 1.0));
 
-        // Render Background
-	    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	    glClear(GL_COLOR_BUFFER_BIT);
-
-        // Draw the rectangle
+        // Draw the rectangle'
+        renderer.clear_scene();
         test_rect.set_color(glm::vec4(0.5f, 0.5f, green_value, 0.5f));
         test_rect.set_transform(trans);
         renderer.render(test_rect);

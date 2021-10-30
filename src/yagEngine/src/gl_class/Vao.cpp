@@ -1,12 +1,17 @@
 
 #include "Vao.hpp"
-
-#include "glad/glad.h"
+#include "GLBindings.hpp"
+#include <stdio.h>
 
 namespace GL_CLASS {
 
     Vao::Vao(VaoAttributeSpec spec)
     : m_spec(spec), m_id(0) {
+
+        if (!GL_BINDINGS::Initialize()) {
+            printf("Warning: Vao used before opengl bindings were tied to context!\n");
+        }
+        return;
     }
 
     bool Vao::make() {
