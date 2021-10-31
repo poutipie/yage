@@ -24,17 +24,67 @@ namespace ASSET {
 class Image2D {
 
     public:
+
+        /**
+         * @brief Construct a new Image2D object
+         * 
+         * @param file_path path to the image file to load
+         */
         Image2D(std::string file_path);
-        Image2D( const Image2D& ) = delete; // non construction-copyable
-        Image2D& operator=( const Image2D& ) = delete; // non copyable
+
+        /**
+         * @brief Destroy the Image 2D object
+         * 
+         */
         ~Image2D();
 
+        /**
+         * @brief Non construction-copyable
+         * 
+         */
+        Image2D( const Image2D& ) = delete;
+
+        /**
+         * @brief Non copyable
+         * 
+         * @return Image2D& 
+         */
+        Image2D& operator=( const Image2D& ) = delete;
+
+        /**
+         * @brief Check if the Image2D object contains valid data
+         * 
+         * @return true with valid data
+         * @return false otherwise
+         */
         bool is_valid() const;
 
+        /**
+         * @brief Get the raw data pointer to image. Use only for old C interfaces that need it.
+         * 
+         * @return unsigned* image raw data bytes 
+         */
         unsigned char* raw_data() const;
 
+        /**
+         * @brief Get the width of the image
+         * 
+         * @return int width
+         */
         int get_width() const;
+
+        /**
+         * @brief Get the height of the image
+         * 
+         * @return int height
+         */
         int get_height() const;
+
+        /**
+         * @brief Get the number of channels contained in the image data
+         * 
+         * @return int number of channels
+         */
         int get_n_channels() const;
 
     private:
