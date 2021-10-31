@@ -36,11 +36,26 @@ class RenderObject : public IRenderable {
         bool render() const;
 
         /**
+         * @brief Get the world position of the object
+         * 
+         * @return glm::vec3 The world position of the object
+         */
+        glm::vec3 get_world_position() const;
+
+        /**
+         * @brief Set the world position of the object
+         * 
+         * @param position 
+         * @return true if position was set successfully
+         */
+        bool set_world_position(glm::vec3 position);
+
+        /**
          * @brief Get the transform matrix of this object.
          *
          * @return 
          */
-        glm::mat4 get_transform() const;
+        glm::mat4 get_local_transform() const;
 
         /**
          * @brief Sets the transform matrix of this object to another transform matrix. 
@@ -49,7 +64,7 @@ class RenderObject : public IRenderable {
          *
          * @return 
          */
-        bool set_transform(glm::mat4 trans);
+        bool set_local_transform(glm::mat4 trans);
 
         /**
          * @brief Set the color of this object to a new color. The color is defined as a float4.
@@ -92,9 +107,9 @@ class RenderObject : public IRenderable {
         bool has_texture() const;
 
         /**
-         * @brief Transforms the current transform by the transform. (A multiplication operation)
+         * @brief Adds the transformation operation to the current transform. (A multiplication)
          *
-         * @param trans The transform that will be used to transorfm the current transform.
+         * @param trans The transform that orients and scales the object in local space.
          *
          * @return True if matrix multiplications succeeded and transform completed.
          */
@@ -121,7 +136,9 @@ class RenderObject : public IRenderable {
         GL_CLASS::Vao m_vao;
         GL_CLASS::GLTexture m_texture;
         bool m_has_texture;
-        glm::mat4 m_transform;
+        
+        glm::vec3 m_world_position;
+        glm::mat4 m_local_transform;
         glm::vec4 m_base_color;
 };
 

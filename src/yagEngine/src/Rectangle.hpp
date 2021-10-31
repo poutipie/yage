@@ -16,8 +16,7 @@ namespace GFX {
 
 
 /**
-* @brief Class for a simple 2d rectangle object. No Sprite support, just base color and a
-* transform.
+* @brief Class for a simple 2d rectangle object.
 */
 class Rectangle : public RenderObject {
 

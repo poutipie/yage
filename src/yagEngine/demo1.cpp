@@ -26,6 +26,7 @@
  * @param height new height
  */
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    // TODO: Need to get this inside gl_class
     glViewport(0, 0, width, height);
 }
 
@@ -62,8 +63,10 @@ int demo1::demo1_exec(void) {
 
     YAGE::GFX::SimpleRenderer renderer;
     renderer.set_background_color(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
-    YAGE::GFX::Rectangle test_rect(-0.75f, 0.75f, 0.5f, 0.5f);
-    YAGE::GFX::Rectangle test_rect2(0.25f, -0.25f, 0.5f, 0.5f);
+    YAGE::GFX::Rectangle test_rect(-5.0f, 5.0f, 2.0f, 2.0f);
+    YAGE::GFX::Rectangle test_rect2(5.0f, -5.0f, 2.0f, 2.0f);
+    YAGE::GFX::Rectangle guide_horizontal(0.0f, 0.0f, 200.0f, 0.1f);
+    YAGE::GFX::Rectangle guide_vertical(0.0f, 0.0f, 0.1f, 200.0f);
    
     /* Load and create a texture */
     unsigned int texture;
@@ -76,24 +79,25 @@ int demo1::demo1_exec(void) {
 
 	    processInput(window);
 
-        float time_value = glfwGetTime(); 
+        float time_value = glfwGetTime();
         float cycle_mult = sin(time_value);
-
-        float green_value = (cycle_mult / 2.0f) + 0.5f;
-        float green_value2 = ((-cycle_mult / 2.0f) + 0.5f);
+        float color = ((-cycle_mult / 2.0f) + 0.5f);
 
         glm::mat4 trans = glm::mat4(1.0f);
- 
-        trans = glm::scale(trans, glm::vec3(cycle_mult, 1.0f, 1.0f));
-        trans = glm::rotate(trans, glm::radians(180.0f * cycle_mult), glm::vec3(0.0, 0.0, 1.0));
+        trans = glm::scale(trans, glm::vec3(cycle_mult, cycle_mult, cycle_mult));
+        trans = glm::rotate(trans, glm::radians(180.0f * color), glm::vec3(0.0, 0.0, 1.0));
 
-        // Draw the rectangle'
+        test_rect.set_world_position(glm::vec3(cycle_mult * 5.0f, 5.0f, 0.0f));
+
+        // Draw the rectangle
         renderer.clear_scene();
-        test_rect.set_color(glm::vec4(0.5f, 0.5f, green_value, 0.5f));
-        test_rect.set_transform(trans);
+        test_rect.set_local_transform(trans);
+        test_rect2.set_color(glm::vec4(0.5f, 0.5f, color, 0.5f));
+
         renderer.render(test_rect);
-        test_rect2.set_color(glm::vec4(0.5f, 0.5f, green_value2, 0.5f));
         renderer.render(test_rect2);
+        renderer.render(guide_vertical);
+        renderer.render(guide_horizontal);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -6,15 +6,18 @@ namespace GFX {
 
 Rectangle::Rectangle(float x, float y, float width, float height) 
     : RenderObject() {
-   
+    
+    // Hardcoded model vertices for the rectangle:
     float vertices[] = {
 
-        /* Vertex Coordinates */     /* Texture Coordinates */
-        x, y, 0.0f,                  0.0f, 1.0f,               /*top left*/  
-        x + width, y, 0.0f,          1.0f, 1.0f,               /*top right*/   
-        x, y - height, 0.0f,         0.0f, 0.0f,               /*bottom left*/
-        x + width, y - height, 0.0f, 1.0f, 0.0f                /*bottom right*/
+        /* Model Space Vertex Coordinates */                   /* Texture Coordinates */
+        0.0f - (0.5f * width), 0.0f + (0.5f * height),  0.0f,   0.0f, 1.0f,              /*top left*/  
+        0.0f + (0.5f * width), 0.0f + (0.5f * height),  0.0f,   1.0f, 1.0f,              /*top right*/   
+        0.0f - (0.5f * width), 0.0f - (0.5f * height), 0.0f,   0.0f, 0.0f,              /*bottom left*/
+        0.0f + (0.5f * width), 0.0f - (0.5f * height), 0.0f,   1.0f, 0.0f               /*bottom right*/
     };
+
+    set_world_position(glm::vec3(x, y, 0.0f));
 
     unsigned int vertices_len = sizeof(vertices);
 

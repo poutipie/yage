@@ -16,7 +16,7 @@ namespace GL_BINDINGS {
             {
                 printf("Failed to initialize GLAD\n");
                 return false;
-            }  
+            }
         }
 
         INITIALIZED = true;

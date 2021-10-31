@@ -14,7 +14,7 @@ namespace GFX {
         m_texture(
             {0, 0, nullptr, GL_CLASS::GLTEXTURE_WRAP::REPEAT, GL_CLASS::GLTEXTURE_FILTERING::LINEAR}
         ), 
-        m_transform(1.0f), 
+        m_local_transform(1.0f), 
         m_base_color(0.0f, 0.0f, 0.0f, 0.0f),
         m_has_texture(false) 
     {
@@ -30,20 +30,29 @@ namespace GFX {
         return true;
     }
 
-    glm::mat4 RenderObject::get_transform() const {
-        return m_transform;
+    glm::vec3 RenderObject::get_world_position() const {
+        return m_world_position;
     }
 
-    bool RenderObject::set_transform(glm::mat4 trans) {
+    bool RenderObject:: set_world_position(glm::vec3 position) {
+        m_world_position = position;
+        return true;
+    }
+
+    glm::mat4 RenderObject::get_local_transform() const {
+        return m_local_transform;
+    }
+
+    bool RenderObject::set_local_transform(glm::mat4 trans) {
         
-        m_transform = trans;
+        m_local_transform = trans;
 
         return true;
     }
 
     bool RenderObject::transform_by(glm::mat4 trans) {
         
-        m_transform *= trans;
+        m_local_transform *= trans;
         
         return true;
     }
