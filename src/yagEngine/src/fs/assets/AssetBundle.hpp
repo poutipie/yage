@@ -14,9 +14,7 @@
 #include <memory>
 
 namespace YAGE {
-
 namespace FS {
-
 namespace ASSET {
 
 struct InvalidAssetException : public std::exception
@@ -26,8 +24,6 @@ struct InvalidAssetException : public std::exception
     	return "Error while Loading asset";
     }
 };
-
-} // Asset
 
 /**
  * @brief AssetBundle class can be used for loading files from game assets directories
@@ -62,7 +58,7 @@ class AssetBundle {
         /**
          * @brief Loads an Image asset
          *
-         * @param asse Asset file name to loadt
+         * @param asset Asset file name to load
          *
          * @return ASSET::Image2D representing the loaded image data 
          */
@@ -73,6 +69,7 @@ class AssetBundle {
         std::map<std::string, std::unique_ptr<ASSET::Image2D>> m_image_assets;
 };
 
+} // Asset
 } // FS
 } // YAGE
 

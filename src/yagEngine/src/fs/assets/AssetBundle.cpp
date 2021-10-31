@@ -7,8 +7,8 @@
 #include <filesystem>
 
 namespace YAGE {
-
 namespace FS {
+namespace ASSET {
 
 AssetBundle::AssetBundle() : m_image_assets() {
     return;
@@ -37,11 +37,10 @@ std::string AssetBundle::get_path(const char* asset) {
 
 const ASSET::Image2D& AssetBundle::load_image(const char* asset) {
 
-    std::map<std::string, std::unique_ptr<ASSET::Image2D>>::const_iterator it;
-    
     std::string name(asset);
-    it = m_image_assets.find(name);
+    std::map<std::string, std::unique_ptr<ASSET::Image2D>>::const_iterator it;
 
+    it = m_image_assets.find(name);
     if (it == m_image_assets.end()) {
 
         std::string path = get_path(asset);
@@ -59,7 +58,7 @@ const ASSET::Image2D& AssetBundle::load_image(const char* asset) {
     return *it->second.get();
 }
 
+} // ASSET
 } // FS
-
 } // YAGE
 
