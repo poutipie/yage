@@ -39,7 +39,7 @@ add_library(yagEngine STATIC
     demo1.hpp
     demo1.cpp
     src/gl_class/GLBindings.cpp
-    src/gl_class/GLScene.cpp
+    src/gl_class/GLViewport.cpp
     src/gl_class/SimpleShaderPipeline.cpp
     src/gl_class/Vao.cpp
     src/gl_class/GLTexture.cpp

@@ -12,7 +12,6 @@
  #ifndef GLTEXTURE_HPP
  #define GLTEXTURE_HPP
 
-
 namespace GL_CLASS {
 
     typedef unsigned int GL_TEXTURE_TYPE;

@@ -89,7 +89,7 @@ class RenderObject : public IRenderable {
          *
          * @return true if settings succeeded
          */
-        bool set_texture(YAGE::FS::ASSET::Image2D image);
+        bool set_texture(const YAGE::FS::ASSET::Image2D &image);
 
 
         /**

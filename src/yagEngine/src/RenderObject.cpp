@@ -63,7 +63,7 @@ namespace GFX {
         return true;
     }
 
-    bool RenderObject::set_texture(YAGE::FS::ASSET::Image2D image) {
+    bool RenderObject::set_texture(const YAGE::FS::ASSET::Image2D &image) {
 
         m_texture = GL_CLASS::GLTexture(
             {

@@ -7,7 +7,6 @@
  */
 #include "demo1.hpp"
 
-#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,18 +16,6 @@
 #include "SimpleRenderer.hpp"
 #include "Rectangle.hpp"
 #include "AssetBundle.hpp"
-
-/**
- * @brief GLFW callback for when window has been resized.
- *
- * @param window The GLFW window pointer that has been resized
- * @param width new width
- * @param height new height
- */
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    // TODO: Need to get this inside gl_class
-    glViewport(0, 0, width, height);
-}
 
 
 /**
@@ -59,7 +46,6 @@ int demo1::demo1_exec(void) {
     }
 
     glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);  
 
     YAGE::GFX::SimpleRenderer renderer;
     renderer.set_background_color(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
@@ -69,8 +55,6 @@ int demo1::demo1_exec(void) {
     YAGE::GFX::Rectangle guide_vertical(0.0f, 0.0f, 0.1f, 200.0f);
    
     /* Load and create a texture */
-    unsigned int texture;
-
     YAGE::FS::AssetBundle assets;
     YAGE::FS::ASSET::Image2D image = assets.load_image("container.jpg");
     test_rect.set_texture(image);
@@ -107,4 +91,3 @@ int demo1::demo1_exec(void) {
     glfwTerminate();
     return (EXIT_SUCCESS);
 }
-

@@ -11,6 +11,7 @@
 
 #include "RenderObject.hpp"
 #include "gl_class/SimpleShaderPipeline.hpp"
+#include "gl_class/GLViewport.hpp"
 
 namespace YAGE {
 namespace GFX {
@@ -54,6 +55,7 @@ class SimpleRenderer {
     private:
 
         GL_CLASS::SimpleShaderPipeline m_shader_pipeline;
+        GL_CLASS::GLViewport m_viewport;
         glm::vec4 m_background_color;
 };
 
