@@ -10,6 +10,7 @@
 #define SIMPLERENDERER_HPP
 
 #include "RenderObject.hpp"
+#include "Window.hpp"
 #include "gl_class/SimpleShaderPipeline.hpp"
 #include "gl_class/GLViewport.hpp"
 

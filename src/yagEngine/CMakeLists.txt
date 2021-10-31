@@ -46,6 +46,7 @@ add_library(yagEngine STATIC
     src/Rectangle.cpp
     src/RenderObject.cpp
     src/SimpleRenderer.cpp
+    src/Window.cpp
     src/fs/assets/AssetBundle.cpp
     src/fs/assets/Image2D.cpp
     vert.c # The common vertex shader

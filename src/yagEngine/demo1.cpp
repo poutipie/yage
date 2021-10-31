@@ -7,45 +7,36 @@
  */
 #include "demo1.hpp"
 
-#include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <chrono>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "SimpleRenderer.hpp"
 #include "Rectangle.hpp"
 #include "AssetBundle.hpp"
+#include "Window.hpp"
 
-
-/**
+/** TODO! Implement input processing for window.
  * @brief The input processing callback for a GLFW window.
  *
  * @param window The GLFWWindow pointer for window with possible input
- */
 void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 }
+*/
 
 int demo1::demo1_exec(void) {
 
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window;
-
-    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
+    YAGE::Window window(640, 480, "Simple Test Demo");
+    if(!window.create()) {
+        printf("Unable to create window\n");
         return (EXIT_FAILURE);
     }
-
-    glfwMakeContextCurrent(window);
 
     YAGE::GFX::SimpleRenderer renderer;
     renderer.set_background_color(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
@@ -53,17 +44,23 @@ int demo1::demo1_exec(void) {
     YAGE::GFX::Rectangle test_rect2(5.0f, -5.0f, 2.0f, 2.0f);
     YAGE::GFX::Rectangle guide_horizontal(0.0f, 0.0f, 200.0f, 0.1f);
     YAGE::GFX::Rectangle guide_vertical(0.0f, 0.0f, 0.1f, 200.0f);
-   
+    guide_horizontal.set_color(glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
+    guide_vertical.set_color(glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
+
     /* Load and create a texture */
     YAGE::FS::ASSET::AssetBundle assets;
     const YAGE::FS::ASSET::Image2D& image = assets.load_image("container.jpg");
     test_rect.set_texture(image);
 
-    while(!glfwWindowShouldClose(window)) {
+    auto start = std::chrono::high_resolution_clock::now();
+    while(!window.waiting_to_close()) {
 
-	    processInput(window);
+	    //TODO: Implement input processing for window
+        //processInput(window);
 
-        float time_value = glfwGetTime();
+        auto now = std::chrono::high_resolution_clock::now();
+        auto dur = now - start;
+        float time_value = std::chrono::duration<float>(dur).count();
         float cycle_mult = sin(time_value);
         float color = ((-cycle_mult / 2.0f) + 0.5f);
 
@@ -83,11 +80,7 @@ int demo1::demo1_exec(void) {
         renderer.render(guide_vertical);
         renderer.render(guide_horizontal);
 
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        window.update();
     }
-    
-    glfwDestroyWindow(window);
-    glfwTerminate();
     return (EXIT_SUCCESS);
 }
