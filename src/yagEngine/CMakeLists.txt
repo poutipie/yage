@@ -46,7 +46,8 @@ add_library(yagEngine STATIC
     src/Rectangle.cpp
     src/RenderObject.cpp
     src/SimpleRenderer.cpp
-    src/fs/AssetBundle.cpp
+    src/fs/assets/AssetBundle.cpp
+    src/fs/assets/Image2D.cpp
     vert.c # The common vertex shader
     frag.c # The common fragment shader
 )
@@ -57,9 +58,10 @@ target_include_directories(yagEngine PRIVATE
     ${FREETYPE_INCLUDE_DIRS}
     "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/glad/include" # The glad library 
     "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/stb_image"    # The stb_image library
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/gl_class"     # Source modules for the GL_CLASS types
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/fs"           # FileSystem Modules
-    "${CMAKE_CURRENT_SOURCE_DIR}/src"              # Engine source modules
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/gl_class"      # Source modules for the GL_CLASS types
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/fs"            # FileSystem Modules
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/fs/assets"     # asset Modules
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"               # Engine source modules
 )
 
 # Make an include directory from which yagEngine routines can be found

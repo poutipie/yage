@@ -9,7 +9,9 @@
 #ifndef ASSETBUNDLE_HPP
 #define ASSETBUNDLE_HPP
 
-#include "AssetCommons.hpp"
+#include "Image2D.hpp"
+#include <map>
+#include <memory>
 
 namespace YAGE {
 
@@ -38,7 +40,7 @@ class AssetBundle {
         /**
          * @brief Default Constructor for AssetBundle
          */
-        AssetBundle() = default;
+        AssetBundle();
 
 
         /**
@@ -64,7 +66,11 @@ class AssetBundle {
          *
          * @return ASSET::Image2D representing the loaded image data 
          */
-        ASSET::Image2D load_image(const char* asset);
+        const ASSET::Image2D& load_image(const char* asset);
+    
+    private:
+
+        std::map<std::string, std::unique_ptr<ASSET::Image2D>> m_image_assets;
 };
 
 } // FS

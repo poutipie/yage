@@ -15,7 +15,7 @@
 #include "gl_class/GLTexture.hpp"
 
 #include "IRenderable.hpp"
-#include "AssetCommons.hpp"
+#include "Image2D.hpp"
 
 namespace YAGE {
 namespace GFX {

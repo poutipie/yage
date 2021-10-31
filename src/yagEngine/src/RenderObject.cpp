@@ -67,9 +67,9 @@ namespace GFX {
 
         m_texture = GL_CLASS::GLTexture(
             {
-                (unsigned int) image.width,
-                (unsigned int) image.height,
-                image.data,
+                (unsigned int) image.get_width(),
+                (unsigned int) image.get_height(),
+                image.raw_data(),
                 GL_CLASS::GLTEXTURE_WRAP::REPEAT, 
                 GL_CLASS::GLTEXTURE_FILTERING::LINEAR
             }

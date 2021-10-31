@@ -56,7 +56,7 @@ int demo1::demo1_exec(void) {
    
     /* Load and create a texture */
     YAGE::FS::AssetBundle assets;
-    YAGE::FS::ASSET::Image2D image = assets.load_image("container.jpg");
+    const YAGE::FS::ASSET::Image2D& image = assets.load_image("container.jpg");
     test_rect.set_texture(image);
 
     while(!glfwWindowShouldClose(window)) {
