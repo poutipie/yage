@@ -21,5 +21,3 @@ int main(void) {
     demo1::demo1_exec();
     return (EXIT_SUCCESS);
 }
-
-

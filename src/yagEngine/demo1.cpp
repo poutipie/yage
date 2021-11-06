@@ -18,17 +18,6 @@
 #include "AssetBundle.hpp"
 #include "Window.hpp"
 
-/** TODO! Implement input processing for window.
- * @brief The input processing callback for a GLFW window.
- *
- * @param window The GLFWWindow pointer for window with possible input
-void processInput(GLFWwindow *window)
-{
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}
-*/
-
 int demo1::demo1_exec(void) {
 
 
@@ -54,9 +43,6 @@ int demo1::demo1_exec(void) {
 
     auto start = std::chrono::high_resolution_clock::now();
     while(!window.waiting_to_close()) {
-
-	    //TODO: Implement input processing for window
-        //processInput(window);
 
         auto now = std::chrono::high_resolution_clock::now();
         auto dur = now - start;
