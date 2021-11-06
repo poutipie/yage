@@ -5,8 +5,8 @@
 
 namespace GL_CLASS {
 
-    GLTexture::GLTexture(GLTextureAttributeSpec spec)
-        : m_spec(spec), m_id(0) {
+    GLTexture::GLTexture(GLTextureAttributes attribs)
+        : m_attribs(attribs), m_id(0) {
         
         if (!GL_BINDINGS::Initialize()) {
             printf("Warning: GLTexture used before opengl bindings were tied to context.\n");
@@ -20,17 +20,18 @@ namespace GL_CLASS {
         glBindTexture(GL_TEXTURE_2D, m_id);
 
         /* Set the texture wrapping parameters */
-        unsigned int texture_wrapping = texture_wrap_to_gl(m_spec.texture_wrapping);
+        unsigned int texture_wrapping = texture_wrap_to_gl(m_attribs.texture_wrapping);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_wrapping);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_wrapping);
 
         /* Set the texture filtering parameters */
-        unsigned int texture_filtering = texture_filter_to_gl(m_spec.texture_filtering);
+        unsigned int texture_filtering = texture_filter_to_gl(m_attribs.texture_filtering);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_filtering);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_filtering);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_spec.width, m_spec.height, 0, GL_RGB, 
-            GL_UNSIGNED_BYTE, m_spec.data);
+        unsigned int texture_format = texture_format_to_gl(m_attribs.texture_format);
+        glTexImage2D(GL_TEXTURE_2D, 0, texture_format, m_attribs.width, m_attribs.height, 0, texture_format, 
+            GL_UNSIGNED_BYTE, m_attribs.data);
         glGenerateMipmap(GL_TEXTURE_2D);
 
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -46,6 +47,19 @@ namespace GL_CLASS {
     bool GLTexture::unbind() const {
         glBindTexture(GL_TEXTURE_2D,0);
         return true;
+    }
+
+    unsigned int GLTexture::texture_format_to_gl( GLTEXTURE_FORMAT format_t ) const {
+        
+        switch (format_t) {
+
+            case GLTEXTURE_FORMAT::RGB:
+                return GL_RGB;
+            case GLTEXTURE_FORMAT::RED:
+                return GL_RED;
+            default:
+                return GL_RGB;
+        }
     }
 
     unsigned int GLTexture::texture_wrap_to_gl( GLTEXTURE_WRAP wrap_t) const {

@@ -12,7 +12,10 @@ namespace GFX {
             {nullptr, 0, nullptr, 0, GL_CLASS::DRAW_HINT::STATIC}
         ), 
         m_texture(
-            {0, 0, nullptr, GL_CLASS::GLTEXTURE_WRAP::REPEAT, GL_CLASS::GLTEXTURE_FILTERING::LINEAR}
+            {
+                0, 0, nullptr, GL_CLASS::GLTEXTURE_FORMAT::RGB, GL_CLASS::GLTEXTURE_WRAP::REPEAT, 
+                GL_CLASS::GLTEXTURE_FILTERING::LINEAR
+            }
         ), 
         m_local_transform(1.0f), 
         m_base_color(0.0f, 0.0f, 0.0f, 0.0f),
@@ -70,6 +73,7 @@ namespace GFX {
                 (unsigned int) image.get_width(),
                 (unsigned int) image.get_height(),
                 image.raw_data(),
+                GL_CLASS::GLTEXTURE_FORMAT::RGB,
                 GL_CLASS::GLTEXTURE_WRAP::REPEAT, 
                 GL_CLASS::GLTEXTURE_FILTERING::LINEAR
             }

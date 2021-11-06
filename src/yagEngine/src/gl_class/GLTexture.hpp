@@ -16,6 +16,11 @@ namespace GL_CLASS {
 
     typedef unsigned int GL_TEXTURE_TYPE;
 
+    enum class GLTEXTURE_FORMAT {
+        RGB,
+        RED
+    };
+
     enum class GLTEXTURE_WRAP {
         REPEAT,          // The default behavior for textures. Repeats the texture image.
         MIRRORED_REPEAT, // Same as GL_REPEAT but mirrors the image with each repeat.
@@ -30,9 +35,8 @@ namespace GL_CLASS {
 
     /**
      * @brief The attributes that can be provided to the Texture object.
-     * Main attributes are the .. and they will dictate ...
      */
-    struct GLTextureAttributeSpec {
+    struct GLTextureAttributes {
         
         /**
          * @brief Width of the texture
@@ -51,6 +55,11 @@ namespace GL_CLASS {
          * 
          */
         unsigned char* data;
+
+        /**
+         * @brief The texture format settting
+         */
+        GLTEXTURE_FORMAT texture_format;
 
         /**
         * @brief The texture wrapping setting
@@ -73,7 +82,7 @@ namespace GL_CLASS {
              * @param spec The configuration for all the opengl init functions.
              * options.
              */
-            GLTexture(GLTextureAttributeSpec spec );
+            GLTexture(GLTextureAttributes attribs );
 
             /**
              * @brief Deconstructor of the GLTexture class
@@ -102,10 +111,11 @@ namespace GL_CLASS {
 
         private:
 
+            unsigned int texture_format_to_gl( GLTEXTURE_FORMAT format_t) const;
             unsigned int texture_wrap_to_gl( GLTEXTURE_WRAP wrap_t) const;
             unsigned int texture_filter_to_gl( GLTEXTURE_FILTERING filter_t) const;
 
-            GLTextureAttributeSpec m_spec;
+            GLTextureAttributes m_attribs;
             GL_TEXTURE_TYPE m_id;
     };
 
