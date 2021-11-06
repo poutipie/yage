@@ -9,7 +9,7 @@
 #ifndef GLSHADERPIPELINE_HPP
 #define GLSHADERPIPELINE_HPP
 
-#include "IShaderPipeline.hpp"
+#include "ShaderPipelineTypes.hpp"
 
 namespace GL_CLASS {
 
@@ -19,7 +19,7 @@ namespace GL_CLASS {
      * needs need to be accounted for. Uses only a vertex shader and a fragment shader for
      * operation.
      */
-    class GLShaderPipeline : public IShaderPipeline {
+    class GLShaderPipeline {
 
         public:
 
