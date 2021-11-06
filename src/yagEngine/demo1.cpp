@@ -41,6 +41,11 @@ int demo1::demo1_exec(void) {
     const YAGE::FS::ASSET::Image2D& image = assets.load_image("container.jpg");
     test_rect.set_texture(image);
 
+    /* Load and create a font */
+    const YAGE::FS::ASSET::Font& font = assets.load_font("SourceCodePro-Regular.otf");
+    const YAGE::FS::ASSET::Glyph& glyph = font.get_glyph('a');
+    printf("Glyph a size: (%d,%d)\n", glyph.size[0], glyph.size[1]);
+
     auto start = std::chrono::high_resolution_clock::now();
     while(!window.waiting_to_close()) {
 

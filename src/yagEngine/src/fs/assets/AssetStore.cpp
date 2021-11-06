@@ -10,7 +10,7 @@ namespace YAGE {
 namespace FS {
 namespace ASSET {
 
-AssetStore::AssetStore() : m_image_assets() {
+AssetStore::AssetStore() : m_image_assets(), m_font_assets() {
     return;
 }
 
@@ -38,7 +38,7 @@ std::string AssetStore::get_path(const char* asset) {
 const ASSET::Image2D& AssetStore::load_image(const char* asset) {
 
     std::string name(asset);
-    std::map<std::string, std::unique_ptr<ASSET::Image2D>>::const_iterator it;
+    std::map<std::string, img2d_ptr>::const_iterator it;
 
     it = m_image_assets.find(name);
     if (it == m_image_assets.end()) {
@@ -54,6 +54,27 @@ const ASSET::Image2D& AssetStore::load_image(const char* asset) {
             throw ASSET::InvalidAssetException();
         }
 
+    }
+    return *it->second.get();
+}
+
+const ASSET::Font& AssetStore::load_font(const char* asset) {
+
+    std::string name(asset);
+    std::map<std::string, font_ptr>::const_iterator it;
+
+    it = m_font_assets.find(name);
+    if (it == m_font_assets.end()) {
+
+        std::string path = get_path(asset);
+        m_font_assets.insert({name, std::make_unique<ASSET::Font>(path)});
+        it = m_font_assets.find(name);
+
+        if(!it->second->is_valid()) {
+
+            printf("FAILED TO LOAD FONT &s \n", path.c_str());
+            throw ASSET::InvalidAssetException();
+        }
     }
     return *it->second.get();
 }

@@ -31,6 +31,13 @@ find_package(OpenGL REQUIRED) # Use Common OpenGL package library
 find_package(glfw3 REQUIRED) # Use Common glfw package library
 find_package(Freetype REQUIRED) # Use common freetype package
 
+
+# Find ZLIB, PNG, HARFBUZZ, and BZIP since freetype requires them..
+find_package(ZLIB REQUIRED)
+find_package(BZip2 REQUIRED)
+find_package(PNG REQUIRED)
+find_library(FREETYPE_HARFBUZZ_LIB "harfbuzz")
+
 add_subdirectory(3rdp/glm) # Add the GLM subdirectory
 add_subdirectory(3rdp/stb_image) # Add the STB Image subdirectory
 
@@ -49,6 +56,7 @@ add_library(yagEngine STATIC
     src/Window.cpp
     src/fs/assets/AssetStore.cpp
     src/fs/assets/Image2D.cpp
+    src/fs/assets/Font.cpp
     vert.c # The common vertex shader
     frag.c # The common fragment shader
 )
@@ -76,6 +84,10 @@ target_include_directories(yagEngine PUBLIC
 target_link_libraries(yagEngine 
     ${OPENGL_gl_LIBRARY}
     ${FREETYPE_LIBRARIES}
+    ZLIB::ZLIB               # FREETYPE requies this
+    BZip2::BZip2             # FREETYPE requires this
+    PNG::PNG                 # FREETYPE requires this
+    ${FREETYPE_HARFBUZZ_LIB} # FREETYPE requires this
     glfw glm stb_image
     ${CMAKE_DL_LIBS})
 

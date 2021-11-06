@@ -17,6 +17,9 @@ namespace GL_BINDINGS {
                 printf("Failed to initialize GLAD\n");
                 return false;
             }
+
+            // Some secret settings for opengl here:
+            glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Some font textures are not always pixel aligned
         }
 
         INITIALIZED = true;
