@@ -1,11 +1,10 @@
-// SimpleShaderPipeline.cpp
-#include "SimpleShaderPipeline.hpp"
+#include "GLShaderPipeline.hpp"
 #include "GLBindings.hpp"
 #include <stdio.h>
 
 namespace GL_CLASS {
 
-    SimpleShaderPipeline::SimpleShaderPipeline(const PipelineCompilerSpec& spec) 
+    GLShaderPipeline::GLShaderPipeline(const PipelineCompilerSpec& spec) 
         : m_pipeline_compiler_spec(spec) 
     {
         if (!GL_BINDINGS::Initialize()) {
@@ -14,7 +13,7 @@ namespace GL_CLASS {
         return;
     }
 
-    bool SimpleShaderPipeline::make() {
+    bool GLShaderPipeline::make() {
 
         /* Compile our vertex shader for the program and link it.
         * Vertex shader maps the vertax data coordinates into normalized
@@ -80,7 +79,7 @@ namespace GL_CLASS {
         return true;
     }
 
-    bool SimpleShaderPipeline::use() const {
+    bool GLShaderPipeline::use() const {
         /* Finally, set our shader program to use. After this the program
      	* has a fully functional opengl pipeline to draw graphics on.
      	*/
@@ -90,28 +89,28 @@ namespace GL_CLASS {
         return true;
     }
 
-    bool SimpleShaderPipeline::set_uniform_bool(char * name, bool value) const {
+    bool GLShaderPipeline::set_uniform_bool(char * name, bool value) const {
         glUniform1i(glGetUniformLocation(m_shader_program, name), (int)value);
         return true;
     }
 
-    bool SimpleShaderPipeline::set_uniform_int(char* name, int value) const {
+    bool GLShaderPipeline::set_uniform_int(char* name, int value) const {
         glUniform1i(glGetUniformLocation(m_shader_program, name), value);  
         return true;
     }
 
-    bool SimpleShaderPipeline::set_uniform_float(char* name, float value) const {
+    bool GLShaderPipeline::set_uniform_float(char* name, float value) const {
         glUniform1f(glGetUniformLocation(m_shader_program, name), value);
         return true;
     }
 
     
-    bool SimpleShaderPipeline::set_uniform_float4(char* name, float x, float y, float z, float i) {
+    bool GLShaderPipeline::set_uniform_float4(char* name, float x, float y, float z, float i) {
         glUniform4f(glGetUniformLocation(m_shader_program, name), x, y, z, i);
         return true;
     }
 
-    bool SimpleShaderPipeline::set_uniform_matf4(char* name, const float* values) {
+    bool GLShaderPipeline::set_uniform_matf4(char* name, const float* values) {
         unsigned int transform_loc = glGetUniformLocation(m_shader_program, name);
         glUniformMatrix4fv(transform_loc, 1, GL_FALSE, values); 
         return true;

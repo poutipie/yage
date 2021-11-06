@@ -1,13 +1,13 @@
 /**
- * @file SimpleShaderPipeline.hpp
- * @brief The file for the SimpleShaderPipeline class.
+ * @file GLShaderPipeline.hpp
+ * @brief The file for the GLShaderPipeline class.
  * @author poutipie
  * @version 1
  * @date 2020-07-26
  */
 
-#ifndef SIMPLESHADERPIPELINE_HPP
-#define SIMPLESHADERPIPELINE_HPP
+#ifndef GLSHADERPIPELINE_HPP
+#define GLSHADERPIPELINE_HPP
 
 #include "IShaderPipeline.hpp"
 
@@ -15,21 +15,21 @@ namespace GL_CLASS {
 
 
     /**
-     * @brief SimpleShaderPipeline class that is the base ShaderPipeline to use unless special
+     * @brief GLShaderPipeline class that is the base ShaderPipeline to use unless special
      * needs need to be accounted for. Uses only a vertex shader and a fragment shader for
      * operation.
      */
-    class SimpleShaderPipeline : public IShaderPipeline {
+    class GLShaderPipeline : public IShaderPipeline {
 
         public:
 
             /**
-             * @brief The SimpleShaderPipeline Constructor.
+             * @brief The GLShaderPipeline Constructor.
              *
              * @param spec The PipelineCompilerSpec given for the ShaderPipeline. Should hold the in
              * memory resources for the shaders used.
              */
-            SimpleShaderPipeline(const PipelineCompilerSpec & spec);
+            GLShaderPipeline(const PipelineCompilerSpec & spec);
             
             /**
              * @brief Make the shader pipeline entirely and link it to a shader program.
@@ -107,4 +107,4 @@ namespace GL_CLASS {
 }
 
 
-#endif // SIMPLESHADERPIPELINE_HPP
+#endif // GLSHADERPIPELINE_HPP

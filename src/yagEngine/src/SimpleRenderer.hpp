@@ -11,14 +11,14 @@
 
 #include "RenderObject.hpp"
 #include "Window.hpp"
-#include "gl_class/SimpleShaderPipeline.hpp"
+#include "gl_class/GLShaderPipeline.hpp"
 #include "gl_class/GLViewport.hpp"
 
 namespace YAGE {
 namespace GFX {
 
 /**
- * @brief The SimpleRenderer object. This is a renderer that uses the SimpleShaderPipeline to render
+ * @brief The SimpleRenderer object. This is a renderer that uses the GLShaderPipeline to render
  * RenderObjects.
  */
 class SimpleRenderer {
@@ -29,7 +29,7 @@ class SimpleRenderer {
 
         /**
          * @brief Renders the render object with this renderer.
-         * Uses the SimpleShaderPipeline with default vertex and fragment shader.
+         * Uses the GLShaderPipeline with default vertex and fragment shader.
          * Takes advantage of 'base_color' and 'transform' uniforms to allow setting a color and a
          * transform for the RenderObject. Hence assumes that similarly named variables are used by
          * the shader.
@@ -55,7 +55,7 @@ class SimpleRenderer {
 
     private:
 
-        GL_CLASS::SimpleShaderPipeline m_shader_pipeline;
+        GL_CLASS::GLShaderPipeline m_shader_pipeline;
         GL_CLASS::GLViewport m_viewport;
         glm::vec4 m_background_color;
 };
