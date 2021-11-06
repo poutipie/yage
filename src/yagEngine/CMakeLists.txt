@@ -47,7 +47,7 @@ add_library(yagEngine STATIC
     src/RenderObject.cpp
     src/SimpleRenderer.cpp
     src/Window.cpp
-    src/fs/assets/AssetBundle.cpp
+    src/fs/assets/AssetStore.cpp
     src/fs/assets/Image2D.cpp
     vert.c # The common vertex shader
     frag.c # The common fragment shader

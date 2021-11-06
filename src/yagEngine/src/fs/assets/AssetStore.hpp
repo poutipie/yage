@@ -1,13 +1,13 @@
 /**
- * @file AssetBundle.hpp
- * @brief File to contain the AssetBundle class.
+ * @file AssetStore.hpp
+ * @brief File to contain the AssetStore class.
  * @author poutipie
  * @version 1
  * @date 2020-07-27
  */
 
-#ifndef ASSETBUNDLE_HPP
-#define ASSETBUNDLE_HPP
+#ifndef ASSETSTORE_HPP
+#define ASSETSTORE_HPP
 
 #include "Image2D.hpp"
 #include <map>
@@ -26,23 +26,23 @@ struct InvalidAssetException : public std::exception
 };
 
 /**
- * @brief AssetBundle class can be used for loading files from game assets directories
+ * @brief AssetStore class can be used for loading files from game assets directories
  */
-class AssetBundle {
+class AssetStore {
 
     public:
         
 
         /**
-         * @brief Default Constructor for AssetBundle
+         * @brief Default Constructor for AssetStore
          */
-        AssetBundle();
+        AssetStore();
 
 
         /**
-         * @brief Default Deconstructor for AssetBundle class
+         * @brief Default Deconstructor for AssetStore class
          */
-        ~AssetBundle() = default;
+        ~AssetStore() = default;
 
 
         /**
@@ -73,4 +73,4 @@ class AssetBundle {
 } // FS
 } // YAGE
 
-#endif // ASSETBUNDLE_HPP
+#endif // ASSETSTORE_HPP

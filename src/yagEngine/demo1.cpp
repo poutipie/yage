@@ -15,7 +15,7 @@
 
 #include "SimpleRenderer.hpp"
 #include "Rectangle.hpp"
-#include "AssetBundle.hpp"
+#include "AssetStore.hpp"
 #include "Window.hpp"
 
 int demo1::demo1_exec(void) {
@@ -37,7 +37,7 @@ int demo1::demo1_exec(void) {
     guide_vertical.set_color(glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
 
     /* Load and create a texture */
-    YAGE::FS::ASSET::AssetBundle assets;
+    YAGE::FS::ASSET::AssetStore assets;
     const YAGE::FS::ASSET::Image2D& image = assets.load_image("container.jpg");
     test_rect.set_texture(image);
 

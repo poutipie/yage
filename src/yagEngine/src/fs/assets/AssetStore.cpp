@@ -1,5 +1,5 @@
 
-#include "AssetBundle.hpp"
+#include "AssetStore.hpp"
 
 #include <stdio.h>
 #include <fstream>
@@ -10,11 +10,11 @@ namespace YAGE {
 namespace FS {
 namespace ASSET {
 
-AssetBundle::AssetBundle() : m_image_assets() {
+AssetStore::AssetStore() : m_image_assets() {
     return;
 }
 
-std::string AssetBundle::get_path(const char* asset) {
+std::string AssetStore::get_path(const char* asset) {
 
     std::filesystem::path path;
     bool path_found = false;
@@ -35,7 +35,7 @@ std::string AssetBundle::get_path(const char* asset) {
     return path.string();
 }
 
-const ASSET::Image2D& AssetBundle::load_image(const char* asset) {
+const ASSET::Image2D& AssetStore::load_image(const char* asset) {
 
     std::string name(asset);
     std::map<std::string, std::unique_ptr<ASSET::Image2D>>::const_iterator it;
