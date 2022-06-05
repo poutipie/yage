@@ -14,7 +14,6 @@
 #include "gl_class/Vao.hpp"
 #include "gl_class/GLTexture.hpp"
 
-#include "IRenderable.hpp"
 #include "Image2D.hpp"
 
 namespace YAGE {
@@ -24,7 +23,7 @@ namespace GFX {
 * @brief RenderObject is the basic renderable object. This object will have vertices defined
 * together with a color and a transform to render them into a scene.
 */
-class RenderObject : public IRenderable {
+class RenderObject {
 
     public:
 
