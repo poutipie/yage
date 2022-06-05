@@ -68,12 +68,12 @@ target_include_directories(yage PRIVATE
 target_include_directories(yage PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${FREETYPE_INCLUDE_DIRS}
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/glad/include" # The glad library 
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/stb_image"    # The stb_image library
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/gl_class"      # Source modules for the GL_CLASS types
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/fs"            # FileSystem Modules
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/fs/assets"     # asset Modules
-    "${CMAKE_CURRENT_SOURCE_DIR}/src"               # Engine source modules
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/glad/include"   # The glad library 
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/stb_image"      # The stb_image library
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/gl_class"        # Source modules for the GL_CLASS types
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/fs"              # FileSystem Modules
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/fs/assets"       # asset Modules
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"                 # Engine source modules
 )
 
 
@@ -82,7 +82,7 @@ target_include_directories(yage PUBLIC
 target_link_libraries(yage 
     ${OPENGL_gl_LIBRARY}
     ${FREETYPE_LIBRARIES}
-    ZLIB::ZLIB               # FREETYPE requies this
+    ZLIB::ZLIB               # FREETYPE requires this
     BZip2::BZip2             # FREETYPE requires this
     PNG::PNG                 # FREETYPE requires this
     ${FREETYPE_HARFBUZZ_LIB} # FREETYPE requires this
