@@ -52,6 +52,7 @@ class SimpleRenderer {
          * @param color The background color to set
          */
         void set_background_color(glm::vec4 color);
+        bool set_background_color_rgba(uint8_t red, uint8_t green, uint8_t blue, float alpha = 1.0f);
 
     private:
 

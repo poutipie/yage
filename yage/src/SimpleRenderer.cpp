@@ -66,5 +66,22 @@ void SimpleRenderer::set_background_color(glm::vec4 color) {
     m_background_color = color;
 }
 
+bool SimpleRenderer::set_background_color_rgba(uint8_t red, uint8_t green, uint8_t blue, float alpha) {
+
+        if (alpha > 1.0f || alpha < 0.0f) {
+            return false;
+        }
+
+        m_background_color = glm::vec4(
+            (float)red / 255.0f,
+            (float)green / 255.0f,
+            (float)blue / 255.0f,
+            alpha
+        );
+
+        return true;
+
+}
+
 } // GFX
 } // YAGE

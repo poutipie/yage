@@ -1,4 +1,4 @@
-# CMakeLists.txt: CMake library for YAGEngine
+# CMakeLists.txt: CMake library for yage
 cmake_minimum_required(VERSION 3.10)
 
 
@@ -24,7 +24,7 @@ file( COPY res/yage
 )
 
 
-# --- Make yagEngine Library ---- #
+# --- Make yage Library ---- #
 
 SET ( OpenGL_GL_PREFERENCE GLVND) # Prefer GLVND library
 find_package(OpenGL REQUIRED) # Use Common OpenGL package library
@@ -41,7 +41,7 @@ find_library(FREETYPE_HARFBUZZ_LIB "harfbuzz")
 add_subdirectory(3rdp/glm) # Add the GLM subdirectory
 add_subdirectory(3rdp/stb_image) # Add the STB Image subdirectory
 
-add_library(yagEngine STATIC
+add_library(yage STATIC
     3rdp/glad/src/glad.c # Just add this too so the library can use the glad 
     src/gl_class/GLBindings.cpp
     src/gl_class/GLViewport.cpp
@@ -59,13 +59,13 @@ add_library(yagEngine STATIC
     frag.c # The common fragment shader
 )
 
-target_include_directories(yagEngine PRIVATE
+target_include_directories(yage PRIVATE
     ${OPENGL_INCLUDE_DIR}
     ${GLFW_INCLUDE_DIRS}
 )
 
-# Make an include directory from which yagEngine routines can be found
-target_include_directories(yagEngine PUBLIC 
+# Make an include directory from which yage routines can be found
+target_include_directories(yage PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${FREETYPE_INCLUDE_DIRS}
     "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/glad/include" # The glad library 
@@ -77,9 +77,9 @@ target_include_directories(yagEngine PUBLIC
 )
 
 
-# ---- Link dependencies to yagEngine ---- #
+# ---- Link dependencies to yage ---- #
 
-target_link_libraries(yagEngine 
+target_link_libraries(yage 
     ${OPENGL_gl_LIBRARY}
     ${FREETYPE_LIBRARIES}
     ZLIB::ZLIB               # FREETYPE requies this
@@ -89,7 +89,7 @@ target_link_libraries(yagEngine
     glfw glm stb_image
     ${CMAKE_DL_LIBS})
 
-get_target_property(target_includes yagEngine INTERFACE_INCLUDE_DIRECTORIES)
+get_target_property(target_includes yage INTERFACE_INCLUDE_DIRECTORIES)
 message(STATUS "${PROJECT_NAME} target includes: " ${target_includes})
 
 # Compile commands for YCM
