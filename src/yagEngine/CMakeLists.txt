@@ -64,6 +64,11 @@ add_library(yagEngine STATIC
 target_include_directories(yagEngine PRIVATE
     ${OPENGL_INCLUDE_DIR}
     ${GLFW_INCLUDE_DIRS}
+)
+
+# Make an include directory from which yagEngine routines can be found
+target_include_directories(yagEngine PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}
     ${FREETYPE_INCLUDE_DIRS}
     "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/glad/include" # The glad library 
     "${CMAKE_CURRENT_SOURCE_DIR}/3rdp/stb_image"    # The stb_image library
@@ -71,11 +76,6 @@ target_include_directories(yagEngine PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src/fs"            # FileSystem Modules
     "${CMAKE_CURRENT_SOURCE_DIR}/src/fs/assets"     # asset Modules
     "${CMAKE_CURRENT_SOURCE_DIR}/src"               # Engine source modules
-)
-
-# Make an include directory from which yagEngine routines can be found
-target_include_directories(yagEngine PUBLIC 
-    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 
