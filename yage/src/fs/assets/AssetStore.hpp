@@ -11,6 +11,7 @@
 
 #include "Image2D.hpp"
 #include "Font.hpp"
+#include "Mesh2D.hpp"
 #include <map>
 #include <memory>
 
@@ -28,6 +29,7 @@ struct InvalidAssetException : public std::exception
 
 typedef std::unique_ptr<ASSET::Image2D> img2d_ptr;
 typedef std::unique_ptr<ASSET::Font> font_ptr;
+typedef std::unique_ptr<ASSET::Mesh2D> mesh_ptr;
 
 /**
  * @brief AssetStore class can be used for loading files from game assets directories
@@ -76,10 +78,13 @@ class AssetStore {
          */
         const ASSET::Font& load_font(const char* asset);
 
+        const ASSET::Mesh2D& load_mesh(const char* asset);
+
     private:
 
         std::map<std::string, img2d_ptr> m_image_assets;
         std::map<std::string, font_ptr> m_font_assets;
+        std::map<std::string, mesh_ptr> m_mesh_assets;
 };
 
 } // Asset

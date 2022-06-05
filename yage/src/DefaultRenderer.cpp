@@ -1,4 +1,4 @@
-#include "SimpleRenderer.hpp"
+#include "DefaultRenderer.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -11,7 +11,7 @@ extern "C" const size_t vert_len;
 extern "C" const char frag[];
 extern "C" const size_t frag_len;
 
-SimpleRenderer::SimpleRenderer() 
+DefaultRenderer::DefaultRenderer() 
 : 
 m_shader_pipeline(GL_CLASS::PipelineCompilerSpec(vert, frag)),
 m_viewport(20, 20, 600, 440),
@@ -20,7 +20,7 @@ m_background_color()
     m_shader_pipeline.make();
 }
 
-bool SimpleRenderer::render(const RenderObject& object) {
+bool DefaultRenderer::render(const RenderTarget& object) {
 
     m_shader_pipeline.use();
     glm::mat4 local_transform = object.get_local_transform();
@@ -58,15 +58,15 @@ bool SimpleRenderer::render(const RenderObject& object) {
     return true;
 }
 
-void SimpleRenderer::clear_scene() const {
+void DefaultRenderer::clear_scene() const {
     m_viewport.clear(m_background_color);
 }
 
-void SimpleRenderer::set_background_color(glm::vec4 color) {
+void DefaultRenderer::set_background_color(glm::vec4 color) {
     m_background_color = color;
 }
 
-bool SimpleRenderer::set_background_color_rgba(uint8_t red, uint8_t green, uint8_t blue, float alpha) {
+bool DefaultRenderer::set_background_color_rgba(uint8_t red, uint8_t green, uint8_t blue, float alpha) {
 
         if (alpha > 1.0f || alpha < 0.0f) {
             return false;

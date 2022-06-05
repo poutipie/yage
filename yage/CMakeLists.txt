@@ -48,13 +48,13 @@ add_library(yage STATIC
     src/gl_class/GLShaderPipeline.cpp
     src/gl_class/Vao.cpp
     src/gl_class/GLTexture.cpp
-    src/Rectangle.cpp
-    src/RenderObject.cpp
-    src/SimpleRenderer.cpp
+    src/RenderTarget.cpp
+    src/DefaultRenderer.cpp
     src/Window.cpp
     src/fs/assets/AssetStore.cpp
     src/fs/assets/Image2D.cpp
     src/fs/assets/Font.cpp
+    src/fs/assets/Mesh2D.cpp
     vert.c # The common vertex shader
     frag.c # The common fragment shader
 )

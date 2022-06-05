@@ -1,15 +1,15 @@
 /**
- * @file SimpleRenderer.hpp
- * @brief File containing the SimpleRenderer object.
+ * @file DefaultRenderer.hpp
+ * @brief File containing the DefaultRenderer object.
  * @author poutipie
  * @version 1
  * @date 2020-07-26
  */
 
-#ifndef SIMPLERENDERER_HPP
-#define SIMPLERENDERER_HPP
+#ifndef DEFAULTRENDERER_HPP
+#define DEFAULTRENDERER_HPP
 
-#include "RenderObject.hpp"
+#include "RenderTarget.hpp"
 #include "Window.hpp"
 #include "gl_class/GLShaderPipeline.hpp"
 #include "gl_class/GLViewport.hpp"
@@ -18,27 +18,27 @@ namespace YAGE {
 namespace GFX {
 
 /**
- * @brief The SimpleRenderer object. This is a renderer that uses the GLShaderPipeline to render
- * RenderObjects.
+ * @brief The DefaultRenderer object. This is a renderer that uses the GLShaderPipeline to render
+ * RenderTargets.
  */
-class SimpleRenderer {
+class DefaultRenderer {
 
     public:
 
-        SimpleRenderer();
+        DefaultRenderer();
 
         /**
          * @brief Renders the render object with this renderer.
          * Uses the GLShaderPipeline with default vertex and fragment shader.
          * Takes advantage of 'base_color' and 'transform' uniforms to allow setting a color and a
-         * transform for the RenderObject. Hence assumes that similarly named variables are used by
+         * transform for the RenderTarget. Hence assumes that similarly named variables are used by
          * the shader.
          *
-         * @param object The renderobject to be rendered.
+         * @param object The RenderTarget to be rendered.
          *
          * @return 
          */
-        bool render(const RenderObject& object);
+        bool render(const RenderTarget& object);
 
         /**
          * @brief Clears the rendered scene
@@ -64,5 +64,5 @@ class SimpleRenderer {
 } // GFX
 } // YAGE
 
-#endif // SIMPLERENDERER_HPP
+#endif // DEFAULTRENDERER_HPP
 

@@ -1,13 +1,13 @@
 /**
- * @file RenderObject.hpp
- * @brief The file for the RenderObject class and related types.
+ * @file RenderTarget.hpp
+ * @brief The file for the RenderTarget class and related types.
  * @author poutipie
  * @version 1
  * @date 2020-07-26
  */
 
-#ifndef RENDEROBJECT_HPP
-#define RENDEROBJECT_HPP
+#ifndef RENDERTARGET_HPP
+#define RENDERTARGET_HPP
 
 #include <glm/glm.hpp>
 
@@ -15,17 +15,25 @@
 #include "gl_class/GLTexture.hpp"
 
 #include "Image2D.hpp"
+#include "Mesh2D.hpp"
 
 namespace YAGE {
 namespace GFX {
 
 /**
-* @brief RenderObject is the basic renderable object. This object will have vertices defined
+* @brief RenderTarget is the basic renderable object. This object will have vertices defined
 * together with a color and a transform to render them into a scene.
 */
-class RenderObject {
+class RenderTarget {
 
     public:
+
+        /**
+         * @brief The constructor for this RenderTarget.
+         */
+        RenderTarget();
+        RenderTarget(glm::vec3 world_position, glm::vec3 scale);
+        RenderTarget(float x, float y, float scale_x = 1.0f, float scale_y = 1.0f);
 
         /**
          * @brief See IRenderable. Basically a wrapper call for the 'draw' method of the VAO object.
@@ -65,6 +73,8 @@ class RenderObject {
          */
         bool set_local_transform(glm::mat4 trans);
 
+        bool set_mesh(const YAGE::FS::ASSET::Mesh2D &mesh);
+
         /**
          * @brief Set the color of this object to a new color. The color is defined as a float4.
          *
@@ -100,7 +110,7 @@ class RenderObject {
         GL_CLASS::GLTexture get_texture() const;
 
         /**
-         * @brief Tells if the RenderObject has a valid texture set
+         * @brief Tells if the RenderTarget has a valid texture set
          * 
          * @return true if the texture is set.
          */
@@ -116,13 +126,6 @@ class RenderObject {
         bool transform_by(glm::mat4 trans);
 
     protected:
-
-        /**
-         * @brief The constructor for this RenderObject. Protected since this object should never be
-         * directly created.
-         */
-        RenderObject();
-
         /**
          * @brief Use this in the child class constructor to initialize the m_vao object properly.
          *
@@ -145,4 +148,4 @@ class RenderObject {
 } // GFX
 } // YAGE
 
-#endif // RENDEROBJECT_HPP
+#endif // RENDERTARGET_HPP

@@ -4,8 +4,8 @@
 #include <chrono>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "SimpleRenderer.hpp"
-#include "Rectangle.hpp"
+#include "DefaultRenderer.hpp"
+#include "RenderTarget.hpp"
 #include "AssetStore.hpp"
 #include "Window.hpp"
 
@@ -18,17 +18,26 @@ int main(void) {
         return (EXIT_FAILURE);
     }
 
-    YAGE::GFX::SimpleRenderer renderer;
+    YAGE::GFX::DefaultRenderer renderer;
     renderer.set_background_color(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
-    YAGE::GFX::Rectangle test_rect(-5.0f, 5.0f, 2.0f, 2.0f);
-    YAGE::GFX::Rectangle test_rect2(5.0f, -5.0f, 2.0f, 2.0f);
-    YAGE::GFX::Rectangle guide_horizontal(0.0f, 0.0f, 200.0f, 0.1f);
-    YAGE::GFX::Rectangle guide_vertical(0.0f, 0.0f, 0.1f, 200.0f);
+    YAGE::GFX::RenderTarget test_rect(-5.0f, 5.0f, 2.0f, 2.0f);
+    YAGE::GFX::RenderTarget test_rect2(5.0f, -5.0f, 2.0f, 2.0f);
+    YAGE::GFX::RenderTarget guide_horizontal(0.0f, 0.0f, 200.0f, 0.1f);
+    YAGE::GFX::RenderTarget guide_vertical(0.0f, 0.0f, 0.1f, 200.0f);
+    
+    /* Set colors */
     guide_horizontal.set_color(glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
     guide_vertical.set_color(glm::vec4(1.0f, 0.0f, 0.0f, 0.5f));
 
-    /* Load and create a texture */
+    /* Load and set a mesh */
     YAGE::FS::ASSET::AssetStore assets;
+    const YAGE::FS::ASSET::Mesh2D& square_mesh = assets.load_mesh("square.mesh");
+    test_rect.set_mesh(square_mesh);
+    test_rect2.set_mesh(square_mesh);
+    guide_horizontal.set_mesh(square_mesh);
+    guide_vertical.set_mesh(square_mesh);
+
+    /* Load and create a texture */
     const YAGE::FS::ASSET::Image2D& image = assets.load_image("container.jpg");
     test_rect.set_texture(image);
 
@@ -38,6 +47,9 @@ int main(void) {
     printf("Glyph a size: (%d,%d)\n", glyph.size[0], glyph.size[1]);
 
     auto start = std::chrono::high_resolution_clock::now();
+
+    glm::mat4 original_trans = test_rect.get_local_transform();
+
     while(!window.waiting_to_close()) {
 
         auto now = std::chrono::high_resolution_clock::now();
@@ -46,8 +58,8 @@ int main(void) {
         float cycle_mult = sin(time_value);
         float color = ((-cycle_mult / 2.0f) + 0.5f);
 
-        glm::mat4 trans = glm::mat4(1.0f);
-        trans = glm::scale(trans, glm::vec3(cycle_mult, cycle_mult, cycle_mult));
+        glm::mat4 trans;
+        trans = glm::scale(original_trans, glm::vec3(cycle_mult, cycle_mult, cycle_mult));
         trans = glm::rotate(trans, glm::radians(180.0f * color), glm::vec3(0.0, 0.0, 1.0));
 
         test_rect.set_world_position(glm::vec3(cycle_mult * 5.0f, 5.0f, 0.0f));

@@ -72,9 +72,24 @@ const ASSET::Font& AssetStore::load_font(const char* asset) {
 
         if(!it->second->is_valid()) {
 
-            printf("FAILED TO LOAD FONT &s \n", path.c_str());
+            printf("FAILED TO LOAD FONT %s \n", path.c_str());
             throw ASSET::InvalidAssetException();
         }
+    }
+    return *it->second.get();
+}
+
+const ASSET::Mesh2D& AssetStore::load_mesh(const char* asset) {
+
+    std::string name(asset);
+    std::map<std::string, mesh_ptr>::const_iterator it;
+
+    it = m_mesh_assets.find(name);
+    if (it == m_mesh_assets.end()) {
+
+        std::string path = get_path(asset);
+        m_mesh_assets.insert({name, std::make_unique<ASSET::Mesh2D>(path)});
+        it = m_mesh_assets.find(name);
     }
     return *it->second.get();
 }
