@@ -61,7 +61,22 @@ namespace GFX {
     }
 
     bool RenderObject::set_color(glm::vec4 color) {
+
         m_base_color = color;
+        return true;
+    }
+
+    bool RenderObject::set_color_rgba(uint8_t red, uint8_t green, uint8_t blue, float_t alpha) {
+        if (alpha > 1.0f || alpha < 0.0f) {
+            return false;
+        }
+
+        m_base_color = glm::vec4(
+            (float)red / 255.0f,
+            (float)green / 255.0f,
+            (float)blue / 255.0f,
+            alpha
+        );
 
         return true;
     }

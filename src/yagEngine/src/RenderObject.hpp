@@ -74,6 +74,7 @@ class RenderObject : public IRenderable {
          * @return True if settings succeeded. 
          */
         bool set_color(glm::vec4 color);
+        bool set_color_rgba(uint8_t red, uint8_t green, uint8_t blue, float_t alpha = 1.0f);
 
         /**
          * @brief Get the color of this object.
